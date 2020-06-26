@@ -7,14 +7,18 @@ assignees: ''
 
 ---
 
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+## features
+1. do this example
+1. do this example
 
-**Describe the solution you'd like**
-A clear and concise description of what you want to happen.
+## NB
 
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
+### Database info
+## Table
+> name = table_name
+## Columns
 
-**Additional context**
-Add any other context or screenshots about the feature request here.
+### Start
+> date
+### Deadline
+> date
