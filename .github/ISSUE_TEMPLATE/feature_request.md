@@ -8,8 +8,8 @@ assignees: ''
 ---
 
 ## features
-1. do this example
-1. do this example
+- [ ] do this task
+- [ ] do this task
 
 ## NB
 
