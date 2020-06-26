@@ -8,8 +8,8 @@ assignees: ''
 ---
 
 ## features
-- [ ] do this task
-- [ ] do this task
+1. todo task
+1. todo task
 
 ## NB
 
@@ -18,7 +18,14 @@ assignees: ''
 > name = table_name
 ## Columns
 
+### Estimated effort
+> duration
+
 ### Start
 > date
 ### Deadline
 > date
+
+### Acceptance criteria
+- [ ] this task should pass
+- [ ] this task should pass
