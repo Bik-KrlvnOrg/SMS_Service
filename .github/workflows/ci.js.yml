@@ -28,6 +28,14 @@ jobs:
     - name: Install dependencies
       run: npm install
 
+    - name: make decrypt_env executable
+      run: chmod +x ./.github/scripts/decrypt_env.sh
+
+    - name: decrypt env file
+      run: ./.github/scripts/decrypt_env.sh
+      env:
+        ENV_SECRET: ${{secrets.ENV_SECRET}}
+
     - name: Unit test
       run: npm test
 
