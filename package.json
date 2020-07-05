@@ -30,6 +30,7 @@
     "class-transformer": "^0.2.3",
     "class-validator": "^0.12.2",
     "dotenv": "^8.2.0",
+    "moment": "^2.27.0",
     "mysql2": "^2.1.0",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
@@ -62,7 +63,9 @@
     "typescript": "^3.7.4"
   },
   "jest": {
-    "setupFiles":["dotenv/config"],
+    "setupFiles": [
+      "dotenv/config"
+    ],
     "moduleFileExtensions": [
       "js",
       "json",

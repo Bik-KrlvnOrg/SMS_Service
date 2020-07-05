@@ -24,8 +24,10 @@ export interface AuthPayload {
 /**
  * Login payload
  */
-export interface LoginPayload {
+export class LoginResponse {
   accessToken: string;
+  refreshToken: string;
+  tokenType?:string
 }
 
 /**

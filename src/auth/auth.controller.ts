@@ -6,9 +6,10 @@ import {
 } from '@nestjs/common';
 import {
   CredentialDto,
-  LoginPayload,
+  LoginResponse,
 } from './model/auth.model';
 import { AuthService } from './auth.service';
+import { RefreshTokenDto } from './token/model/token.model';
 
 @Controller('users')
 export class AuthController {
@@ -17,9 +18,15 @@ export class AuthController {
   @Post('/login')
   login(
     @Body(ValidationPipe) credential: CredentialDto,
-  ): Promise<LoginPayload> {
+  ): Promise<LoginResponse> {
     return this.authService.authenticate(credential);
   }
 
+  @Post('/refresh-token')
+  refreshAccessToken(
+    @Body(ValidationPipe) refreshDto: RefreshTokenDto,
+  ): Promise<LoginResponse> {
+    return this.authService.generateAccessToken(refreshDto);
+  }
 
 }

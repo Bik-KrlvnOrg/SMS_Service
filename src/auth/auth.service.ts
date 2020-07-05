@@ -5,11 +5,12 @@ import {
 } from '@nestjs/common';
 import { StudentRepository } from '../student/student.repository';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CredentialDto, AuthPayload, LoginPayload } from './model/auth.model';
+import { CredentialDto, AuthPayload, LoginResponse } from './model/auth.model';
 import { AuthType } from './enum/auth.enum';
 import { StaffRepository } from '../staff/staff.repository';
 import { AdminRepository } from '../admin/admin.repository';
-import { JwtService } from '@nestjs/jwt';
+import { TokenService } from './token/token.service';
+import { RefreshTokenDto } from './token/model/token.model';
 
 /**
  * Auth service
@@ -27,7 +28,7 @@ export class AuthService {
     private studentRepository: StudentRepository,
     @InjectRepository(StaffRepository) private staffRepository: StaffRepository,
     @InjectRepository(AdminRepository) private adminRepository: AdminRepository,
-    private jwtService: JwtService,
+    private tokenService: TokenService,
   ) {}
 
   /**
@@ -35,17 +36,24 @@ export class AuthService {
    * @param credential CredentialDto
    * @returns LoginPayload
    */
-  async authenticate(credential: CredentialDto): Promise<LoginPayload> {
+  async authenticate(credential: CredentialDto): Promise<LoginResponse> {
     const payload = await this.getAuthPayload(credential);
-    const accessToken: LoginPayload = {
-      accessToken: await this.generateAccessToken(payload),
-    };
-    return accessToken;
+    const response: LoginResponse = await this.tokenService.generateAccessToken(
+      payload,
+    );
+    return response;
   }
 
-  private async generateAccessToken(payload: AuthPayload) {
-    const token = await this.jwtService.signAsync(payload);
-    return token;
+  /**
+   * Generates access token
+   * @param payload RefreshTokenDto
+   * @returns LoginResponse
+   */
+  async generateAccessToken(payload: RefreshTokenDto): Promise<LoginResponse> {
+    const response: LoginResponse = await this.tokenService.getAccessTokenFromRefreshToken(
+      payload,
+    );
+    return response;
   }
 
   /**

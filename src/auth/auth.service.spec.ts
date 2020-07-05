@@ -1,12 +1,13 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthService } from './auth.service';
 import { StudentRepository } from '../student/student.repository';
-import { CredentialDto, AuthPayload, LoginPayload } from './model/auth.model';
+import { CredentialDto, AuthPayload, LoginResponse } from './model/auth.model';
 import { AuthType } from './enum/auth.enum';
 import { UnauthorizedException, BadRequestException } from '@nestjs/common';
 import { StaffRepository } from '../staff/staff.repository';
 import { AdminRepository } from '../admin/admin.repository';
-import { JwtService } from '@nestjs/jwt';
+import { TokenService } from './token/token.service';
+import { RefreshTokenDto, TokenType } from './token/model/token.model';
 
 const mockRepository = () => ({
   getStudentWithCredential: jest.fn(),
@@ -14,16 +15,17 @@ const mockRepository = () => ({
   getAdminWithCredential: jest.fn(),
 });
 
-const mockJwtService = () => ({
-  signAsync: jest.fn(),
+const mockTokenService = () => ({
+  generateAccessToken: jest.fn(),
+  getAccessTokenFromRefreshToken: jest.fn(),
 });
 
-describe.only('AuthService', () => {
+describe('AuthService', () => {
   let service: AuthService;
   let studenRepository;
   let staffRepository;
   let adminRepository;
-  let jwtService;
+  let tokenService;
 
   const credential: CredentialDto = {
     username: 'any_username',
@@ -52,7 +54,16 @@ describe.only('AuthService', () => {
     username: 'any_username',
   };
 
-  const loginPayload: LoginPayload = { accessToken: 'any_token' };
+  const loginPayload: LoginResponse = {
+    accessToken: 'any_token',
+    refreshToken: 'any_refresh',
+    tokenType:TokenType['Bearer']
+  };
+
+  const refreshTokenDto: RefreshTokenDto = {
+    oldAccessToken: 'any_access_token',
+    refreshToken: 'any_refresh_token',
+  };
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -61,7 +72,7 @@ describe.only('AuthService', () => {
         { provide: StudentRepository, useFactory: mockRepository },
         { provide: StaffRepository, useFactory: mockRepository },
         { provide: AdminRepository, useFactory: mockRepository },
-        { provide: JwtService, useFactory: mockJwtService },
+        { provide: TokenService, useFactory: mockTokenService },
       ],
     }).compile();
 
@@ -69,8 +80,8 @@ describe.only('AuthService', () => {
     studenRepository = module.get<StudentRepository>(StudentRepository);
     staffRepository = module.get<StaffRepository>(StaffRepository);
     adminRepository = module.get<AdminRepository>(AdminRepository);
-    jwtService = module.get<JwtService>(JwtService);
-    jwtService.signAsync.mockResolvedValue(loginPayload.accessToken);
+    tokenService = module.get<TokenService>(TokenService);
+    tokenService.generateAccessToken.mockResolvedValue(loginPayload);
   });
 
   it('should throw an error as user type not found', () => {
@@ -147,6 +158,14 @@ describe.only('AuthService', () => {
       expect(service.authenticate(credential)).rejects.toThrow(
         UnauthorizedException,
       );
+    });
+  });
+
+  describe('generateAccessToken', () => {
+    it('should return login payload with valid refresh token', async () => {
+      tokenService.getAccessTokenFromRefreshToken.mockResolvedValue(loginPayload);
+      const expected = await service.generateAccessToken(refreshTokenDto);
+      expect(expected).toEqual(loginPayload)
     });
   });
 });

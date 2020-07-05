@@ -55,6 +55,12 @@ describe('JWtPassportStrategy', () => {
     adminRepository = module.get<AdminRepository>(AdminRepository);
   });
 
+  it('should throw not implemented error',async () => {
+    const actual = Object.assign({}, payload);
+    actual.type = AuthType[''];
+    expect(jwtService.validate(actual)).rejects.toThrow(Error);
+  });
+
   it('should get user entity with type student', async () => {
     const studentPayload = Object.assign({}, payload);
     studentPayload.type = AuthType.STUDENT;

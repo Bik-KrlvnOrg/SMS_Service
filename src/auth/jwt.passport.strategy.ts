@@ -32,7 +32,7 @@ export class JwtPassportStrategy extends PassportStrategy(Strategy) {
     if (payload.type === AuthType.ADMIN) return this.getAdmin(payload);
     if (payload.type === AuthType.STAFF) return this.getStaff(payload);
     if (payload.type === AuthType.STUDENT) return this.getStudent(payload);
-    return null;
+    throw new Error(`type: '${payload.type}' not implemented`);
   }
   private async getAdmin(payload: AuthPayload) {
     const admin = await this.adminRepository.getAdminWithPayload(payload);

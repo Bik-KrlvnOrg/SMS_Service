@@ -10,6 +10,6 @@ export const TypeOrmConfig:TypeOrmModuleOptions = {
     port:Number(process.env.DATABASE_PORT),
     synchronize:false,
     entities: ['dist/entities/*.js'],
-    logging:true,
+    logging:false,
     dropSchema:false
 }
