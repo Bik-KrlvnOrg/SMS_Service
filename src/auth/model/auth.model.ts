@@ -34,5 +34,5 @@ export class LoginResponse {
  * User entity
  */
 export class UserEntity {
-  constructor(public id: number, public type: AuthType) {}
+  constructor(public id: number, public type: AuthType,public username:string) {}
 }

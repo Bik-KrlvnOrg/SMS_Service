@@ -64,7 +64,7 @@ describe('JWtPassportStrategy', () => {
   it('should get user entity with type student', async () => {
     const studentPayload = Object.assign({}, payload);
     studentPayload.type = AuthType.STUDENT;
-    const actual = new UserEntity(studentPayload.id, studentPayload.type);
+    const actual = new UserEntity(studentPayload.id, studentPayload.type,studentPayload.username);
 
     studentRepository.getStudentWithPayload.mockResolvedValue(studentData);
     const expected = await jwtService.validate(studentPayload);
@@ -74,7 +74,7 @@ describe('JWtPassportStrategy', () => {
   it('should get user entity with type staff', async () => {
     const staffPayload = Object.assign({}, payload);
     staffPayload.type = AuthType.STAFF;
-    const actual = new UserEntity(staffPayload.id, staffPayload.type);
+    const actual = new UserEntity(staffPayload.id, staffPayload.type,staffPayload.username);
 
     staffRepository.getStaffWithPayload.mockResolvedValue(staffData);
     const expected = await jwtService.validate(staffPayload);
@@ -82,7 +82,7 @@ describe('JWtPassportStrategy', () => {
   });
 
   it('should get user entity with type staff', async () => {
-    const actual = new UserEntity(payload.id, payload.type);
+    const actual = new UserEntity(payload.id, payload.type,payload.username);
 
     adminRepository.getAdminWithPayload.mockResolvedValue(adminData);
     const expected = await jwtService.validate(payload);
