@@ -37,21 +37,21 @@ export class JwtPassportStrategy extends PassportStrategy(Strategy) {
   private async getAdmin(payload: AuthPayload) {
     const admin = await this.adminRepository.getAdminWithPayload(payload);
     if (!admin) return null;
-    const user = new UserEntity(admin.esAdminsid, payload.type);
+    const user = new UserEntity(admin.esAdminsid, payload.type,admin.adminUsername);
     return user;
   }
 
   private async getStaff(payload: AuthPayload): Promise<UserEntity> {
     const staff = await this.staffRepository.getStaffWithPayload(payload);
     if (!staff) return null;
-    const user = new UserEntity(staff.esStaffid, payload.type);
+    const user = new UserEntity(staff.esStaffid, payload.type,staff.stUsername);
     return user;
   }
 
   private async getStudent(payload: AuthPayload): Promise<UserEntity> {
     const student = await this.studentRepository.getStudentWithPayload(payload);
     if (!student) return null;
-    const user = new UserEntity(student.esPreadmissionid, payload.type);
+    const user = new UserEntity(student.esPreadmissionid, payload.type,student.preStudentUsername);
     return user;
   }
 }
