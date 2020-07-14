@@ -9,7 +9,6 @@ import { StaffRepository } from '../staff/staff.repository';
 import { JwtPassportStrategy } from './jwt.passport.strategy';
 import { AdminRepository } from '../admin/admin.repository';
 import { TokenService } from './token/token.service';
-import { EsToken } from '../entities/EsToken';
 import { TokenRepository } from './token/token.repository';
 
 @Module({
