@@ -1,6 +1,7 @@
 import { Repository, EntityRepository, Not } from 'typeorm';
 import { EsPreadmission } from '../entities/EsPreadmission';
-import { CredentialDto, AuthPayload } from '../auth/model/auth.model';
+import { CredentialDto, UserEntity } from '../auth/model/auth.model';
+import { StudentProfileResponse } from './model/student.model';
 
 @EntityRepository(EsPreadmission)
 export class StudentRepository extends Repository<EsPreadmission> {
@@ -19,7 +20,7 @@ export class StudentRepository extends Repository<EsPreadmission> {
     return student;
   }
 
-  async getStudentWithPayload(payload: AuthPayload): Promise<EsPreadmission> {
+  async getStudentWithPayload(payload: UserEntity): Promise<EsPreadmission> {
     const { username, id } = payload;
     const student = await this.findOne({
       where: {
@@ -28,7 +29,10 @@ export class StudentRepository extends Repository<EsPreadmission> {
         status: Not('inactive'),
       },
     });
-
     return student;
+  }
+
+  async getProfile(payload: UserEntity): Promise<EsPreadmission> {
+    return this.getStudentWithPayload(payload);
   }
 }

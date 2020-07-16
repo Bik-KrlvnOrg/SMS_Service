@@ -1,29 +1,18 @@
-import { async } from 'rxjs/internal/scheduler/async';
 import { Test } from '@nestjs/testing';
 import { StudentRepository } from './student.repository';
-import { CredentialDto, AuthPayload } from '../auth/model/auth.model';
-import { AuthType } from '../auth/enum/auth.enum';
+import { CredentialDto, UserEntity } from '../auth/model/auth.model';
 import { Not } from 'typeorm';
+import { StudentMocks } from './mock/student.mocks';
 
 describe('StudentRepository()', () => {
   let repository;
 
-  const credential: CredentialDto = {
-    username: 'any_username',
-    password: 'any_password',
-    type: AuthType.STUDENT,
-  };
+  const credential: CredentialDto = StudentMocks.credential;
 
-  const payload: AuthPayload = {
-    username: 'any_username',
-    id: 1,
-    type: AuthType.STUDENT,
-  };
+  const payload: UserEntity = StudentMocks.payload;
 
-  const studentData = {
-    preStudentUsername: 'any_username',
-    esPreadmissionid: 1,
-  };
+  const studentData = StudentMocks.studentData;
+  const profileData = StudentMocks.profileData;
 
   beforeAll(async () => {
     const module = await Test.createTestingModule({
@@ -61,5 +50,14 @@ describe('StudentRepository()', () => {
       },
     });
     expect(expected).toEqual(studentData);
+  });
+
+  describe('Get student profile', () => {
+    it('should return profile with payload', async () => {
+      repository.findOne.mockResolvedValue(profileData);
+      const expected = await repository.getProfile(payload)
+      expect(expected.personal).not.toBeNull()
+      expect(expected.parent).not.toBeNull()
+    });
   });
 });

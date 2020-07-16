@@ -1,6 +1,6 @@
 import { Test } from '@nestjs/testing';
 import { StaffRepository } from './staff.repository';
-import { CredentialDto, AuthPayload } from '../auth/model/auth.model';
+import { CredentialDto, UserEntity } from '../auth/model/auth.model';
 import { AuthType } from '../auth/enum/auth.enum';
 
 describe('StaffRepository', () => {
@@ -11,7 +11,7 @@ describe('StaffRepository', () => {
     type: AuthType.STAFF,
   };
 
-  const payload: AuthPayload = {
+  const payload: UserEntity = {
     username: 'any_username',
     id: 1,
     type: AuthType.STAFF,

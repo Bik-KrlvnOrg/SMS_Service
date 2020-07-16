@@ -1,6 +1,6 @@
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
-import { AuthPayload, UserEntity } from './model/auth.model';
+import { UserEntity } from './model/auth.model';
 import { InjectRepository } from '@nestjs/typeorm';
 import { StudentRepository } from '../student/student.repository';
 import { StaffRepository } from '../staff/staff.repository';
@@ -22,36 +22,33 @@ export class JwtPassportStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(payload: AuthPayload): Promise<UserEntity> {
+  async validate(payload: UserEntity): Promise<UserEntity> {
     const user = await this.getUser(payload);
     if (!user) throw new UnauthorizedException();
     return user;
   }
 
-  private async getUser(payload: AuthPayload): Promise<UserEntity> {
+  private async getUser(payload: UserEntity): Promise<UserEntity> {
     if (payload.type === AuthType.ADMIN) return this.getAdmin(payload);
     if (payload.type === AuthType.STAFF) return this.getStaff(payload);
     if (payload.type === AuthType.STUDENT) return this.getStudent(payload);
     throw new Error(`type: '${payload.type}' not implemented`);
   }
-  private async getAdmin(payload: AuthPayload) {
-    const admin = await this.adminRepository.getAdminWithPayload(payload);
+  private async getAdmin(user: UserEntity) {
+    const admin = await this.adminRepository.getAdminWithPayload(user);
     if (!admin) return null;
-    const user = new UserEntity(admin.esAdminsid, payload.type);
     return user;
   }
 
-  private async getStaff(payload: AuthPayload): Promise<UserEntity> {
-    const staff = await this.staffRepository.getStaffWithPayload(payload);
+  private async getStaff(user: UserEntity): Promise<UserEntity> {
+    const staff = await this.staffRepository.getStaffWithPayload(user);
     if (!staff) return null;
-    const user = new UserEntity(staff.esStaffid, payload.type);
     return user;
   }
 
-  private async getStudent(payload: AuthPayload): Promise<UserEntity> {
-    const student = await this.studentRepository.getStudentWithPayload(payload);
+  private async getStudent(user: UserEntity): Promise<UserEntity> {
+    const student = await this.studentRepository.getStudentWithPayload(user);
     if (!student) return null;
-    const user = new UserEntity(student.esPreadmissionid, payload.type);
     return user;
   }
 }

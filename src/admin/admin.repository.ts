@@ -1,6 +1,6 @@
 import { Repository, EntityRepository } from 'typeorm';
 import { EsAdmins } from '../entities/EsAdmins';
-import { CredentialDto, AuthPayload } from '../auth/model/auth.model';
+import { CredentialDto, UserEntity } from '../auth/model/auth.model';
 
 @EntityRepository(EsAdmins)
 export class AdminRepository extends Repository<EsAdmins> {
@@ -16,7 +16,7 @@ export class AdminRepository extends Repository<EsAdmins> {
     return admin;
   }
 
-  async getAdminWithPayload(payload: AuthPayload): Promise<EsAdmins> {
+  async getAdminWithPayload(payload: UserEntity): Promise<EsAdmins> {
     const { username, id } = payload;
     const admin = await this.findOne({
       where: { esAdminsid: id, adminUsername: username },

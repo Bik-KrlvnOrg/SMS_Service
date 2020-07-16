@@ -1,6 +1,6 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { AuthPayload } from '../model/auth.model';
+import { UserEntity } from '../model/auth.model';
 import { InjectRepository } from '@nestjs/typeorm';
 import { randomBytes } from 'crypto';
 import { toHumanFullDate, addDaysToDate } from '../../utils/date-time.utils';
@@ -37,7 +37,7 @@ export class TokenService {
    * @param payload AuthPayload
    * @returns JwtPayload
    */
-  async generateAccessToken(payload: AuthPayload): Promise<JwtPayload> {
+  async generateAccessToken(payload: UserEntity): Promise<JwtPayload> {
     const accessToken = await this.jwtService.signAsync(payload);
     const refreshToken = await this.generateRefreshToken(payload);
     const token: JwtPayload = {
@@ -48,7 +48,7 @@ export class TokenService {
     return token;
   }
 
-  private async generateRefreshToken(payload: AuthPayload): Promise<string> {
+  private async generateRefreshToken(payload: UserEntity): Promise<string> {
     const token = randomBytes(64).toString('hex');
     await this.saveRefreshToken(token, payload.id, payload.username);
     return token;
@@ -87,12 +87,12 @@ export class TokenService {
         )} current time is ${toHumanFullDate(currentDate)}`,
       );
 
-    const { id, username, type } = await this.validateToken(
+    const { id, type, school, username } = await this.validateToken(
       oldAccessToken,
       true,
     );
 
-    const authPayload: AuthPayload = { id, username, type };
+    const authPayload: UserEntity = { id, type, school, username };
 
     const accessToken = await this.generateAccessToken(authPayload);
     await this.tokenRepository.delete({
@@ -105,9 +105,9 @@ export class TokenService {
   private async validateToken(
     token: string,
     ignoreExpiration = false,
-  ): Promise<AuthPayload> {
+  ): Promise<UserEntity> {
     return (await this.jwtService.verifyAsync(token, {
       ignoreExpiration,
-    })) as AuthPayload;
+    })) as UserEntity;
   }
 }

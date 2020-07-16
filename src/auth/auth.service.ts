@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { StudentRepository } from '../student/student.repository';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CredentialDto, AuthPayload, LoginResponse } from './model/auth.model';
+import { CredentialDto, UserEntity, LoginResponse } from './model/auth.model';
 import { AuthType } from './enum/auth.enum';
 import { StaffRepository } from '../staff/staff.repository';
 import { AdminRepository } from '../admin/admin.repository';
@@ -63,7 +63,7 @@ export class AuthService {
    */
   private async getAuthPayload(
     credential: CredentialDto,
-  ): Promise<AuthPayload> {
+  ): Promise<UserEntity> {
     switch (credential.type) {
       case AuthType.STUDENT:
         return this.getAuthStudentPayload(credential);
@@ -86,7 +86,7 @@ export class AuthService {
    */
   private async getAuthStudentPayload(
     credential: CredentialDto,
-  ): Promise<AuthPayload> {
+  ): Promise<UserEntity> {
     const { type } = credential;
     const student = await this.studentRepository.getStudentWithCredential(
       credential,
@@ -94,7 +94,7 @@ export class AuthService {
 
     if (!student) throw new UnauthorizedException('invalid credentials');
 
-    const payload: AuthPayload = {
+    const payload: UserEntity = {
       username: student.preStudentUsername,
       id: student.esPreadmissionid,
       type,
@@ -109,13 +109,13 @@ export class AuthService {
    */
   private async getAuthStaffPayload(
     credential: CredentialDto,
-  ): Promise<AuthPayload> {
+  ): Promise<UserEntity> {
     const { type } = credential;
     const staff = await this.staffRepository.getStaffWithCredential(credential);
 
     if (!staff) throw new UnauthorizedException('invalid credentials');
 
-    const payload: AuthPayload = {
+    const payload: UserEntity = {
       username: staff.stUsername,
       id: staff.esStaffid,
       type,
@@ -130,13 +130,13 @@ export class AuthService {
    */
   private async getAuthAdminPayload(
     credential: CredentialDto,
-  ): Promise<AuthPayload> {
+  ): Promise<UserEntity> {
     const { type } = credential;
     const admin = await this.adminRepository.getAdminWithCredential(credential);
 
     if (!admin) throw new UnauthorizedException('invalid credentials');
 
-    const payload: AuthPayload = {
+    const payload: UserEntity = {
       username: admin.adminUsername,
       id: admin.esAdminsid,
       type,

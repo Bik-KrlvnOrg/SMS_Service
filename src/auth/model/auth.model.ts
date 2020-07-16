@@ -13,12 +13,13 @@ export class CredentialDto {
 }
 
 /**
- * Auth payload
+ * UserEntity
  */
-export interface AuthPayload {
+export class UserEntity {
   id: number;
   username: string;
   type: AuthType;
+  school?:number
 }
 
 /**
@@ -27,12 +28,5 @@ export interface AuthPayload {
 export class LoginResponse {
   accessToken: string;
   refreshToken: string;
-  tokenType?:string
-}
-
-/**
- * User entity
- */
-export class UserEntity {
-  constructor(public id: number, public type: AuthType) {}
+  tokenType?: string;
 }

@@ -4,7 +4,7 @@ import { StudentRepository } from '../student/student.repository';
 import { StaffRepository } from '../staff/staff.repository';
 import { AdminRepository } from '../admin/admin.repository';
 import { AuthType } from './enum/auth.enum';
-import { UserEntity, AuthPayload } from './model/auth.model';
+import { UserEntity } from './model/auth.model';
 import { UnauthorizedException } from '@nestjs/common';
 
 const mockRepository = () => ({
@@ -28,10 +28,11 @@ const adminData = {
   esAdminsid: 1,
 };
 
-const payload: AuthPayload = {
+const payload: UserEntity = {
   id: 1,
   type: AuthType.ADMIN,
   username: 'any_username',
+  school: 0,
 };
 describe('JWtPassportStrategy', () => {
   let jwtService: JwtPassportStrategy;
@@ -55,7 +56,7 @@ describe('JWtPassportStrategy', () => {
     adminRepository = module.get<AdminRepository>(AdminRepository);
   });
 
-  it('should throw not implemented error',async () => {
+  it('should throw not implemented error', async () => {
     const actual = Object.assign({}, payload);
     actual.type = AuthType[''];
     expect(jwtService.validate(actual)).rejects.toThrow(Error);
@@ -64,7 +65,7 @@ describe('JWtPassportStrategy', () => {
   it('should get user entity with type student', async () => {
     const studentPayload = Object.assign({}, payload);
     studentPayload.type = AuthType.STUDENT;
-    const actual = new UserEntity(studentPayload.id, studentPayload.type);
+    const actual: UserEntity = studentPayload;
 
     studentRepository.getStudentWithPayload.mockResolvedValue(studentData);
     const expected = await jwtService.validate(studentPayload);
@@ -74,15 +75,15 @@ describe('JWtPassportStrategy', () => {
   it('should get user entity with type staff', async () => {
     const staffPayload = Object.assign({}, payload);
     staffPayload.type = AuthType.STAFF;
-    const actual = new UserEntity(staffPayload.id, staffPayload.type);
+    const actual: UserEntity = staffPayload;
 
     staffRepository.getStaffWithPayload.mockResolvedValue(staffData);
     const expected = await jwtService.validate(staffPayload);
     expect(expected).toEqual(actual);
   });
 
-  it('should get user entity with type staff', async () => {
-    const actual = new UserEntity(payload.id, payload.type);
+  it('should get user entity with type admin', async () => {
+    const actual: UserEntity = payload;
 
     adminRepository.getAdminWithPayload.mockResolvedValue(adminData);
     const expected = await jwtService.validate(payload);
@@ -98,21 +99,21 @@ describe('JWtPassportStrategy', () => {
     });
 
     it('should throw an error if student is not found', async () => {
-        const studentPayload = Object.assign({}, payload);
-        studentPayload.type = AuthType.STUDENT;
-        studentRepository.getStudentWithPayload.mockResolvedValue(null);
-        expect(jwtService.validate(studentPayload)).rejects.toThrow(
-          UnauthorizedException,
-        );
-      });
+      const studentPayload = Object.assign({}, payload);
+      studentPayload.type = AuthType.STUDENT;
+      studentRepository.getStudentWithPayload.mockResolvedValue(null);
+      expect(jwtService.validate(studentPayload)).rejects.toThrow(
+        UnauthorizedException,
+      );
+    });
 
-      it('should throw an error if staff is not found', async () => {
-        const staffPayload = Object.assign({}, payload);
-        staffPayload.type = AuthType.STAFF;
-        staffRepository.getStaffWithPayload.mockResolvedValue(null);
-        expect(jwtService.validate(staffPayload)).rejects.toThrow(
-          UnauthorizedException,
-        );
-      });
+    it('should throw an error if staff is not found', async () => {
+      const staffPayload = Object.assign({}, payload);
+      staffPayload.type = AuthType.STAFF;
+      staffRepository.getStaffWithPayload.mockResolvedValue(null);
+      expect(jwtService.validate(staffPayload)).rejects.toThrow(
+        UnauthorizedException,
+      );
+    });
   });
 });
