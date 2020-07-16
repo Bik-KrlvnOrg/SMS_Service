@@ -1,6 +1,6 @@
 import { AdminRepository } from './admin.repository';
 import { Test } from '@nestjs/testing';
-import { CredentialDto, AuthPayload } from '../auth/model/auth.model';
+import { CredentialDto, UserEntity } from '../auth/model/auth.model';
 import { AuthType } from '../auth/enum/auth.enum';
 
 describe('AdminRepository', () => {
@@ -12,7 +12,7 @@ describe('AdminRepository', () => {
     type: AuthType.ADMIN,
   };
 
-  const payload: AuthPayload = {
+  const payload: UserEntity = {
     id: 1,
     type: credential.type,
     username: 'any_username',

@@ -54,5 +54,9 @@ export const StudentMocks = {
       contact: 'any_contact',
       occupation: 'any_occupation',
     },
+
+    toProfile(){
+      return this;
+    }
   },
 };

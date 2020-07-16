@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { StudentService } from './student.service';
 import { StudentRepository } from './student.repository';
 import { StudentMocks } from './mock/student.mocks';
+import { NotFoundException } from '@nestjs/common';
 
 const mockRepository = () => ({
   getProfile: jest.fn(),
@@ -28,5 +29,12 @@ describe('StudentService', () => {
     const expected = await service.getProfile(StudentMocks.payload);
     expect(expected.personal).not.toBeNull();
     expect(expected.parent).not.toBeNull();
+  });
+
+  it('should throw an error if profile is not found', () => {
+    repository.getProfile.mockResolvedValue(null);
+    expect(service.getProfile(StudentMocks.payload)).rejects.toThrow(
+      NotFoundException,
+    );
   });
 });

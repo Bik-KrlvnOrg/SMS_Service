@@ -1,4 +1,4 @@
-export class StudentProfileDto {
+export class StudentProfileResponse {
   personal: StudentPersonal;
   parent: StudentParent;
 }

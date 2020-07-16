@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { TokenService, JwtPayload, refreshTokenPayload } from './token.service';
 import { JwtService } from '@nestjs/jwt';
 import { TokenRepository } from './token.repository';
-import { AuthPayload } from '../model/auth.model';
+import { UserEntity } from '../model/auth.model';
 import { AuthType } from '../enum/auth.enum';
 import { randomBytes } from 'crypto';
 import { BadRequestException } from '@nestjs/common';
@@ -22,7 +22,7 @@ describe.only('TokenService', () => {
     delete: jest.fn(),
   });
 
-  const authPayload: AuthPayload = {
+  const authPayload: UserEntity = {
     id: 1,
     type: AuthType['ADMIN'],
     username: 'any_username',

@@ -1,6 +1,6 @@
 import { Test } from '@nestjs/testing';
 import { StudentRepository } from './student.repository';
-import { CredentialDto, AuthPayload } from '../auth/model/auth.model';
+import { CredentialDto, UserEntity } from '../auth/model/auth.model';
 import { Not } from 'typeorm';
 import { StudentMocks } from './mock/student.mocks';
 
@@ -9,7 +9,7 @@ describe('StudentRepository()', () => {
 
   const credential: CredentialDto = StudentMocks.credential;
 
-  const payload: AuthPayload = StudentMocks.payload;
+  const payload: UserEntity = StudentMocks.payload;
 
   const studentData = StudentMocks.studentData;
   const profileData = StudentMocks.profileData;

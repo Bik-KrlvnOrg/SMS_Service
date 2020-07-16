@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthService } from './auth.service';
 import { StudentRepository } from '../student/student.repository';
-import { CredentialDto, AuthPayload, LoginResponse } from './model/auth.model';
+import { CredentialDto, UserEntity, LoginResponse } from './model/auth.model';
 import { AuthType } from './enum/auth.enum';
 import { UnauthorizedException, BadRequestException } from '@nestjs/common';
 import { StaffRepository } from '../staff/staff.repository';
@@ -48,7 +48,7 @@ describe('AuthService', () => {
     esAdminsid: 1,
   };
 
-  const payload: AuthPayload = {
+  const payload: UserEntity = {
     id: 1,
     type: credential.type,
     username: 'any_username',
