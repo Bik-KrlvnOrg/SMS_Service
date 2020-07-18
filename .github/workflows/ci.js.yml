@@ -39,5 +39,14 @@ jobs:
     - name: Unit test
       run: npm test
 
-    - name: Build project
+    - name: Build project artifact
       run: npm run build --if-present
+
+    - name: Compress artifact
+      run: tar -czvf dist.tar.gz dist package.json yarn.lock
+
+    - name: Upload artifact to remote
+      uses: actions/upload-artifact@v1
+      with:
+        name: dist
+        path: dist.tar.gz
