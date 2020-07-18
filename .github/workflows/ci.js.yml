@@ -46,12 +46,7 @@ jobs:
       run: tar -czvf dist.tar.gz dist package.json yarn.lock
 
     - name: Upload artifact to remote
-      uses: appleboy/scp-action@master
+      uses: actions/upload-artifact@v1
       with:
-        host: ${{secrets.HOST}}
-        username: ${{secrets.USERNAME}}
-        port: ${{secrets.PORT}}
-        key: ${{secrets.KEY}}
-        passphrase: ${{secrets.PASSPHRASE}}
-        source: "dist.tar.gz"
-        target: ${{secrets.TARGET}}
+        name: dist
+        path: dist.tar.gz
