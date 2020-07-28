@@ -1,7 +1,6 @@
 import { Repository, EntityRepository, Not } from 'typeorm';
 import { EsPreadmission } from '../entities/EsPreadmission';
 import { CredentialDto, UserEntity } from '../auth/model/auth.model';
-import { StudentProfileResponse } from './model/student.model';
 
 @EntityRepository(EsPreadmission)
 export class StudentRepository extends Repository<EsPreadmission> {
