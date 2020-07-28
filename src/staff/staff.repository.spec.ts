@@ -1,7 +1,8 @@
 import { Test } from '@nestjs/testing';
 import { StaffRepository } from './staff.repository';
-import { CredentialDto, UserEntity } from '../auth/model/auth.model';
+import { CredentialDto } from '../auth/model/auth.model';
 import { AuthType } from '../auth/enum/auth.enum';
+import { StaffMocks } from './mock/staff.mock';
 
 describe('StaffRepository', () => {
   let repository;
@@ -11,29 +12,18 @@ describe('StaffRepository', () => {
     type: AuthType.STAFF,
   };
 
-  const payload: UserEntity = {
-    username: 'any_username',
-    id: 1,
-    type: AuthType.STAFF,
-  };
-
-  const staffData = {
-    stUsername: 'any_username',
-    esStaffid: 1,
-  };
-
   beforeAll(async () => {
     const module = await Test.createTestingModule({
       providers: [StaffRepository],
     }).compile();
 
-    repository =  module.get<StaffRepository>(StaffRepository);
+    repository = module.get<StaffRepository>(StaffRepository);
     repository.findOne = jest.fn();
   });
 
   it('should return staff data with credential', async () => {
     const { username, password } = credential;
-    repository.findOne.mockResolvedValue(staffData);
+    repository.findOne.mockResolvedValue(StaffMocks.staffData);
     const expected = await repository.getStaffWithCredential(credential);
     expect(repository.findOne).toHaveBeenCalledWith({
       where: {
@@ -44,13 +34,13 @@ describe('StaffRepository', () => {
         tcstatus: 'notissued',
       },
     });
-    expect(expected).toEqual(staffData);
+    expect(expected).toEqual(StaffMocks.staffData);
   });
 
   it('should return staff data with payload', async () => {
-    const { id, username } = payload;
-    repository.findOne.mockResolvedValue(staffData);
-    const expected = await repository.getStaffWithPayload(payload);
+    const { id, username } = StaffMocks.payload;
+    repository.findOne.mockResolvedValue(StaffMocks.staffData);
+    const expected = await repository.getStaffWithPayload(StaffMocks.payload);
     expect(repository.findOne).toHaveBeenCalledWith({
       where: {
         esStaffid: id,
@@ -60,6 +50,12 @@ describe('StaffRepository', () => {
         tcstatus: 'notissued',
       },
     });
-    expect(expected).toEqual(staffData);
+    expect(expected).toEqual(StaffMocks.staffData);
+  });
+
+  it('should return staff profile', async () => {
+    repository.findOne.mockResolvedValue(StaffMocks.staffData);
+    const expected = await repository.getProfile(StaffMocks.payload);
+    expect(expected.stUsername).not.toBeNull();
   });
 });
