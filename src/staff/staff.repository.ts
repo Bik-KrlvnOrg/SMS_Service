@@ -33,4 +33,8 @@ export class StaffRepository extends Repository<EsStaff> {
 
     return staff;
   }
+
+  async getProfile(payload: UserEntity): Promise<EsStaff> {
+    return this.getStaffWithPayload(payload);
+  }
 }
