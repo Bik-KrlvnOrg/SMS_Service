@@ -1,19 +1,24 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity("es_notice", { schema: "school" })
 export class EsNotice {
   @PrimaryGeneratedColumn({ type: "int", name: "es_noticeid" })
-  esNoticeid: number;
+  id: number;
 
   @Column("varchar", { name: "es_title", length: 255 })
-  esTitle: string;
+  title: string;
 
   @Column("longtext", { name: "es_message" })
-  esMessage: string;
+  message: string;
 
   @Column("date", { name: "es_date" })
-  esDate: string;
+  date: Date;
 
   @Column("varchar", { name: "es_subject", length: 255 })
-  esSubject: string;
+  subject: string;
+
+  @BeforeInsert()
+  setCurrrentDate(){
+    this.date = new Date()
+  }
 }
