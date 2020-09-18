@@ -6,10 +6,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { TypeOrmConfig } from './config/typeorm.config';
 import { StudentModule } from './student/student.module';
 import { StaffModule } from './staff/staff.module';
+import { NoticeModule } from './module/notice/notice.module';
 
 
 @Module({
-  imports: [AuthModule, TypeOrmModule.forRoot(TypeOrmConfig), StudentModule, StaffModule],
+  imports: [AuthModule, TypeOrmModule.forRoot(TypeOrmConfig), StudentModule, StaffModule, NoticeModule],
   controllers: [AppController],
   providers: [AppService],
 })
