@@ -1,9 +1,9 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity("es_notice_messages", { schema: "school" })
 export class EsNoticeMessages {
   @PrimaryGeneratedColumn({ type: "int", name: "es_messagesid" })
-  esMessagesid: number;
+  id: number;
 
   @Column("int", { name: "from_id" })
   fromId: number;
@@ -46,10 +46,10 @@ export class EsNoticeMessages {
     enum: ["notreplied", "replied"],
     default: () => "'notreplied'",
   })
-  replayStatus: "notreplied" | "replied";
+  replyStatus: "notreplied" | "replied";
 
   @Column("bigint", { name: "replied_message_id" })
-  repliedMessageId: string;
+  repliedMessageId: number;
 
   @Column("enum", {
     name: "read_status",
@@ -57,4 +57,9 @@ export class EsNoticeMessages {
     default: () => "'Unread'",
   })
   readStatus: "Unread" | "Read";
+
+  @BeforeInsert()
+  setCreatedDate() {
+    this.createdOn = new Date()
+  }
 }
