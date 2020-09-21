@@ -1,4 +1,4 @@
-import { IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
+import { IsEnum, IsNotEmpty, IsNumber, IsNumberString, IsOptional, IsString } from "class-validator";
 import { AuthType } from "../../../auth/enum/auth.enum";
 import { ReadStatus, MessageStatus, ReplyStatus } from "../../../libs";
 
@@ -21,19 +21,19 @@ export class GetNoticeMessageDto {
 }
 
 export class NoticeMessageDto {
-    @IsNumber()
+    @IsNumberString()
     @IsOptional()
     id: number
 
     @IsOptional()
-    @IsNumber()
+    @IsNumberString()
     fromId: number
 
     @IsOptional()
     @IsString()
     fromType: string
 
-    @IsNumber()
+    @IsNumberString()
     toId: number
 
     @IsNotEmpty()
