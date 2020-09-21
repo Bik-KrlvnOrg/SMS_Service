@@ -3,8 +3,6 @@ import { AuthType } from "../../../auth/enum/auth.enum";
 import { ReadStatus, MessageStatus, ReplyStatus } from "../../../libs";
 
 export class GetNoticeMessageDto {
-    id: number
-
     @IsOptional()
     @IsEnum(AuthType)
     fromType?: AuthType
@@ -16,6 +14,10 @@ export class GetNoticeMessageDto {
     @IsOptional()
     @IsEnum(MessageStatus)
     toStatus?: MessageStatus = MessageStatus.ACTIVE
+
+    fromId?: number
+
+    toId?: number
 }
 
 export class NoticeMessageDto {

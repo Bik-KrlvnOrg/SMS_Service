@@ -15,6 +15,6 @@ export class NoticeMessageService {
     }
 
     async getMessages(data: GetNoticeMessageDto): Promise<EsNoticeMessages[]> {
-        return this.repository.find({ ...data })
+        return this.repository.find(data)
     }
 }

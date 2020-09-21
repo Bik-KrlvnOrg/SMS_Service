@@ -23,7 +23,7 @@ export class NoticeMessageMock {
     }
 
     static getNoticeQueryDto() {
-        const dto: GetNoticeMessageDto = { id: 1, toStatus: MessageStatus.ACTIVE }
+        const dto: GetNoticeMessageDto = { fromId: 1, toStatus: MessageStatus.ACTIVE }
         return dto
     }
 }

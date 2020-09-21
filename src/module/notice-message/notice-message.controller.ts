@@ -19,10 +19,20 @@ export class NoticeMessageController {
         return { data: { success: true, noticeMessage: result } }
     }
 
-    @Get()
+    @Get('recieved')
     @UseGuards(AuthGuard())
-    async listMessage(@GetUser() user: UserEntity, @Query() dto: GetNoticeMessageDto): Promise<ResponseObject<'data', any>> {
-        dto.id = user.id
+    async listRecivedMessage(@GetUser() user: UserEntity, @Query() dto: GetNoticeMessageDto): Promise<ResponseObject<'data', any>> {
+        dto.toId = user.id
+        dto.toType = user.type
+        const result = await this.service.getMessages(dto)
+        return { data: { success: true, noticeMessage: result } }
+    }
+    
+    @Get('sent')
+    @UseGuards(AuthGuard())
+    async listSentMessage(@GetUser() user: UserEntity, @Query() dto: GetNoticeMessageDto): Promise<ResponseObject<'data', any>> {
+        dto.fromId = user.id
+        dto.fromType = user.type
         const result = await this.service.getMessages(dto)
         return { data: { success: true, noticeMessage: result } }
     }
