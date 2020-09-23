@@ -10,6 +10,7 @@ import { CreateFeesPaidDetailHandler, CreateFeesPaidHandler, CreateFeesPaymentHa
 import { CqrsModule } from '@nestjs/cqrs';
 import { FeesSagas } from './sagas/fees.sagas';
 import { AuthModule } from '../../auth/auth.module';
+import { GetFeesPaidHandler } from './query';
 
 const CommandHandlers = [
   CreateFeesPaidHandler,
@@ -23,6 +24,10 @@ const EventHandlers = [
   FeesPaidCreatedHandler
 ]
 
+const QueryHandlers = [
+  GetFeesPaidHandler
+]
+
 @Module({
   imports: [
     CqrsModule,
@@ -34,7 +39,7 @@ const EventHandlers = [
         FeesPaidDetailRepository
       ]),
     AuthModule, VoucherModule, FineModule],
-  providers: [...CommandHandlers, ...EventHandlers, FeesSagas, FeesService],
+  providers: [...CommandHandlers, ...EventHandlers, ...QueryHandlers, FeesSagas, FeesService],
   controllers: [FeesController]
 })
 export class FeesModule { }
