@@ -1,15 +1,15 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity("es_feepaid_new", { schema: "school" })
-export class EsFeepaidNew {
+export class FeePaidNewEntity {
   @PrimaryGeneratedColumn({ type: "int", name: "fid" })
-  fid: number;
+  id: number;
 
   @Column("int", { name: "es_preadmissionid" })
-  esPreadmissionid: number;
+  studentId: number;
 
   @Column("int", { name: "financemaster_id" })
-  financemasterId: number;
+  financeMasterId: number;
 
   @Column("int", { name: "class_id" })
   classId: number;
@@ -24,8 +24,13 @@ export class EsFeepaidNew {
   balance: string;
 
   @Column("date", { name: "paid_on" })
-  paidOn: string;
+  paidOn: Date;
 
   @Column("int", { name: "voucherid" })
-  voucherid: number;
+  voucherId: number;
+
+  @BeforeInsert()
+  setDefault() {
+    this.paidOn = new Date()
+  }
 }

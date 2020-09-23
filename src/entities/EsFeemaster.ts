@@ -1,31 +1,31 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity("es_feemaster", { schema: "school" })
-export class EsFeemaster {
+export class FeesMasterEntity {
   @PrimaryGeneratedColumn({ type: "int", name: "es_feemasterid" })
-  esFeemasterid: number;
+  id: number;
 
   @Column("varchar", { name: "fee_particular", length: 255 })
-  feeParticular: string;
+  particular: string;
 
   @Column("int", { name: "fee_class" })
-  feeClass: number;
+  classId: number;
 
   @Column("double", { name: "fee_amount", precision: 22 })
-  feeAmount: number;
+  amount: number;
 
   @Column("int", { name: "fee_instalments" })
-  feeInstalments: number;
+  instalments: number;
 
   @Column("varchar", { name: "fee_extra1", length: 255 })
-  feeExtra1: string;
+  extra1: string;
 
   @Column("varchar", { name: "fee_extra2", length: 255 })
-  feeExtra2: string;
+  extra2: string;
 
   @Column("date", { name: "fee_fromdate" })
-  feeFromdate: string;
+  fromDate: Date;
 
   @Column("date", { name: "fee_todate" })
-  feeTodate: string;
+  toDate: Date;
 }

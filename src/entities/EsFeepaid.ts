@@ -1,46 +1,58 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity("es_feepaid", { schema: "school" })
-export class EsFeepaid {
+export class FeesPaidEntity {
   @PrimaryGeneratedColumn({ type: "int", name: "es_feepaidid" })
-  esFeepaidid: number;
+  id: number;
 
   @Column("int", { name: "studentid" })
-  studentid: number;
+  studentId: number;
 
   @Column("varchar", { name: "class", length: 255 })
-  class: string;
+  classId: number;
 
   @Column("int", { name: "particularid" })
-  particularid: number;
+  particularId: number;
 
   @Column("varchar", { name: "particulartname", length: 255 })
-  particulartname: string;
+  particulartName: string;
 
   @Column("float", { name: "feeamount", precision: 12 })
-  feeamount: number;
+  feeAmount: number;
 
   @Column("date", { name: "date" })
-  date: string;
+  createdDate: Date;
 
   @Column("varchar", { name: "academicyear", length: 255 })
-  academicyear: string;
+  academicYear: string;
 
   @Column("varchar", { name: "comments", length: 255 })
   comments: string;
 
   @Column("int", { name: "es_installment" })
-  esInstallment: number;
+  installment: number;
 
   @Column("date", { name: "fi_fromdate" })
-  fiFromdate: string;
+  fromDate: Date;
 
   @Column("date", { name: "fi_todate" })
-  fiTodate: string;
+  toDate: Date;
 
   @Column("int", { name: "es_voucherentryid" })
-  esVoucherentryid: number;
+  voucherEntryId: number;
 
   @Column("varchar", { name: "fee_waived", length: 255 })
-  feeWaived: string;
+  waived: string;
+
+  @BeforeInsert()
+  setDefault() {
+    this.waived = ""
+    this.comments = ""
+    this.createdDate = new Date()
+    this.academicYear = this.getAcademicYear()
+  }
+
+  getAcademicYear(): string {
+    return `${new Date().getFullYear()}-${new Date().getFullYear() + 1}`
+  }
 }

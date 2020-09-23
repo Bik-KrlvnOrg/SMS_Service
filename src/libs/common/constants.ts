@@ -13,3 +13,8 @@ export enum ReplyStatus {
     NOT_REPLIED = 'notreplied',
     REPLIED = 'replied'
 }
+
+export enum PaymentType {
+    CASH = 'cash',
+    CHEQUE = 'cheque'
+}

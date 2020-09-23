@@ -1,18 +1,18 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity("es_fine_charged_collected", { schema: "school" })
-export class EsFineChargedCollected {
+export class FineCollectedEntity {
   @PrimaryGeneratedColumn({ type: "int", name: "es_fcc_id" })
-  esFccId: number;
+  id: number;
 
   @Column("int", { name: "studentid" })
   studentid: number;
 
   @Column("int", { name: "class" })
-  class: number;
+  classId: number;
 
   @Column("int", { name: "es_feemasterid" })
-  esFeemasterid: number;
+  feeMasterId: number;
 
   @Column("double", { name: "fine_amount", precision: 22 })
   fineAmount: number;
@@ -24,17 +24,22 @@ export class EsFineChargedCollected {
   deductionAllowed: number;
 
   @Column("int", { name: "es_installment" })
-  esInstallment: number;
+  installment: number;
 
   @Column("date", { name: "date" })
-  date: string;
+  createdDate: Date;
 
   @Column("date", { name: "fi_fromdate" })
-  fiFromdate: string;
+  fromDate: Date;
 
   @Column("date", { name: "fi_todate" })
-  fiTodate: string;
+  todate: Date;
 
   @Column("int", { name: "es_voucherentryid" })
-  esVoucherentryid: number;
+  voucherEntryId: number;
+
+  @BeforeInsert()
+  setDefaults() {
+    this.createdDate = new Date()
+  }
 }
