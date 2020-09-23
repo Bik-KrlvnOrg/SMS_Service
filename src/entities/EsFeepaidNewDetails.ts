@@ -1,12 +1,12 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity("es_feepaid_new_details", { schema: "school" })
-export class EsFeepaidNewDetails {
+export class FeePaidNewDetailsEntity {
   @PrimaryGeneratedColumn({ type: "int", name: "fp_det_id" })
-  fpDetId: number;
+  id: number;
 
   @Column("int", { name: "fid" })
-  fid: number;
+  feeId: number;
 
   @Column("varchar", { name: "particulars", length: 255 })
   particulars: string;
@@ -15,5 +15,10 @@ export class EsFeepaidNewDetails {
   amount: string;
 
   @Column("date", { name: "created_on" })
-  createdOn: string;
+  createdOn: Date;
+
+  @BeforeInsert()
+  setDefaults() {
+    this.createdOn = new Date()
+  }
 }
