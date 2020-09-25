@@ -5,23 +5,33 @@ import { FineModule } from './fine/fine.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { FeesMasterRepository, FeesPaidDetailRepository, FeesPaidNewRepository, FeesPaidRepository } from './repository';
 import { FeesController } from './fees.controller';
-import { FeesPaidCreatedHandler, FeesPaidDetailCreatedHandler, FeesPaymentCreatedHandler } from './event';
-import { CreateFeesPaidDetailHandler, CreateFeesPaidHandler, CreateFeesPaymentHandler } from './command';
+import { FeesPaidCreatedHandler, FeesPaidDeletedHandler, FeesPaidDetailCreatedFailedHandler, FeesPaidDetailCreatedHandler, FeesPaidDetailDeletedHandler, FeesPaymentCreatedFailedHandler, FeesPaymentCreatedHandler, FeesPaymentDeletedHandler } from './event';
+import { CreateFeesPaidDetailHandler, CreateFeesPaidHandler, CreateFeesPaymentHandler, DeleteFeesPaidDetailHandler, DeleteFeesPaidHandler, DeleteFeesPaymentHandler } from './command';
 import { CqrsModule } from '@nestjs/cqrs';
 import { FeesSagas } from './sagas/fees.sagas';
 import { AuthModule } from '../../auth/auth.module';
 import { GetFeesPaidHandler } from './query';
+import { FeesPaidCreatedFailsHandler } from './event/handler/fees-paid-created-fails.handler';
 
 const CommandHandlers = [
   CreateFeesPaidHandler,
   CreateFeesPaymentHandler,
-  CreateFeesPaidDetailHandler
+  CreateFeesPaidDetailHandler,
+  DeleteFeesPaymentHandler,
+  DeleteFeesPaidHandler,
+  DeleteFeesPaidDetailHandler,
 ]
 
 const EventHandlers = [
   FeesPaymentCreatedHandler,
   FeesPaidDetailCreatedHandler,
-  FeesPaidCreatedHandler
+  FeesPaidCreatedHandler,
+  FeesPaymentDeletedHandler,
+  FeesPaidDetailDeletedHandler,
+  FeesPaidDeletedHandler,
+  FeesPaymentCreatedFailedHandler,
+  FeesPaidDetailCreatedFailedHandler,
+  FeesPaidCreatedFailsHandler
 ]
 
 const QueryHandlers = [

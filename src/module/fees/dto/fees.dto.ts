@@ -76,11 +76,12 @@ export class FeesToPayDto {
     @IsNotEmpty()
     tofinanceDate: string
 
-    voucherEntryId?: number
-
     particularName?: string
-
+    
     installment?: number
-
+    
+    voucherEntryId?: number
     feesId?: number
+    feesPaidId?: number
+    feesPaidDetailId?: number
 }

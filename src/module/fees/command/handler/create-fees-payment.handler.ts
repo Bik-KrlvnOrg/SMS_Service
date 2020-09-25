@@ -5,6 +5,7 @@ import { FeesPaidNewRepository } from "../../repository";
 import { FeesNewDto } from "../../dto/fees-new.dto";
 import { FeesPaymentCreatedEvent } from "../../event/impl/fees-payment-created.event";
 import { CreateFeesPaymentCommand } from "../impl";
+import { FeesPaymentCreatedFailedEvent } from "../../event";
 
 @CommandHandler(CreateFeesPaymentCommand)
 export class CreateFeesPaymentHandler implements ICommandHandler<CreateFeesPaymentCommand> {
@@ -34,8 +35,9 @@ export class CreateFeesPaymentHandler implements ICommandHandler<CreateFeesPayme
             this.event$.publish(new FeesPaymentCreatedEvent(result, { req: cmd }))
             return { success: true }
         } catch (err) {
+            const voucherEntryId = command.cmd.voucherEntryId
+            this.event$.publish(new FeesPaymentCreatedFailedEvent(voucherEntryId))
             this.logger.log(err)
-            throw new InternalServerErrorException(err.message)
         }
     }
 }
