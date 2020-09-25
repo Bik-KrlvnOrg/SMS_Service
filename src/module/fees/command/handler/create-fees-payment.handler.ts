@@ -1,5 +1,5 @@
 import { ICommandHandler, CommandHandler, EventBus } from "@nestjs/cqrs";
-import { InternalServerErrorException, Logger } from "@nestjs/common";
+import {  Logger } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { FeesPaidNewRepository } from "../../repository";
 import { FeesNewDto } from "../../dto/fees-new.dto";

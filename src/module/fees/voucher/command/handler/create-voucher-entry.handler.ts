@@ -22,7 +22,6 @@ export class CreateVoucherEntryHandler implements ICommandHandler<CreateVoucherE
         this.logger.log(`async ${this.constructor.name}...`, command.constructor.name);
         const { cmd } = command;
         let bank = cmd.bank
-        console.log('vounentr', cmd)
 
         if (cmd.paymentType === PaymentType.CHEQUE) {
             const errors = []
@@ -52,7 +51,6 @@ export class CreateVoucherEntryHandler implements ICommandHandler<CreateVoucherE
             receiptNo: 'fees_',
         }
 
-        console.log('dto', dto)
         const result = await this.voucherRepository.createVoucherEntry(dto)
         cmd.voucherEntryId = result.id
         this.event$.publish(new VoucherEntryCreatedEvent(result, { req: cmd }))
