@@ -30,8 +30,8 @@ export class CreateFeesPaidHandler implements ICommandHandler<CreateFeesPaidComm
             const installment = await this.getInstallmentCount({ studentId, financeMasterId })
             const feeMaster = await this.getFeeMaster({
                 classId,
-                fromDate: new Date(cmd.fromfinanceDate),
-                toDate: new Date(cmd.tofinanceDate)
+                fromDate: cmd.fromfinanceDate,
+                toDate: cmd.tofinanceDate
             })
 
             const dto: FeesPaidDto = {
@@ -66,7 +66,7 @@ export class CreateFeesPaidHandler implements ICommandHandler<CreateFeesPaidComm
         })
     }
 
-    private async getFeeMaster(cmd: { classId: number, fromDate: Date, toDate: Date }) {
+    private async getFeeMaster(cmd: { classId: number, fromDate: string, toDate: string }) {
         return await this.feesMasterRepository.findOne({
             where: { classId: cmd.classId, fromDate: cmd.fromDate, toDate: cmd.toDate }
         })

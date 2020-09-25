@@ -24,8 +24,8 @@ export class FeesMasterEntity {
   extra2: string;
 
   @Column("date", { name: "fee_fromdate" })
-  fromDate: Date;
+  fromDate: string;
 
   @Column("date", { name: "fee_todate" })
-  toDate: Date;
+  toDate: string;
 }
