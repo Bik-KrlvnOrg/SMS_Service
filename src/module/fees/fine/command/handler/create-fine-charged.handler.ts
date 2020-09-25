@@ -5,6 +5,7 @@ import { CreateFineChargedCommand } from "../impl";
 import { FineCollectedRepository } from "../../repository";
 import { FineCollectedDto } from "../../dto/fine-collected.dto";
 import { FineChargedCreatedEvent } from "../../event/impl/fine-charged-created.event";
+import { FineChargedCreatedFailedEvent } from "../../event";
 
 @CommandHandler(CreateFineChargedCommand)
 export class CreateFineChargedHandler implements ICommandHandler<CreateFineChargedCommand> {
@@ -36,6 +37,7 @@ export class CreateFineChargedHandler implements ICommandHandler<CreateFineCharg
             this.event$.publish(new FineChargedCreatedEvent(result))
             return { success: true }
         } catch (err) {
+            this.event$.publish(new FineChargedCreatedFailedEvent(command.cmd))
             this.logger.log(err)
         }
     }

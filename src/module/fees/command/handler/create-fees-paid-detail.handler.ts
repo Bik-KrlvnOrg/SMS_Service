@@ -5,6 +5,7 @@ import { CreateFeesPaidDetailCommand } from "../impl";
 import { FeesPaidDetailRepository } from "../../repository";
 import { FeesPaidDetailCreatedEvent } from "../../event";
 import { FeesPaidDetailDto } from "../../dto";
+import { FeesPaidDetailCreatedFailedEvent } from "../../event/impl/fees-paid-detail-created-failed.event";
 
 @CommandHandler(CreateFeesPaidDetailCommand)
 export class CreateFeesPaidDetailHandler implements ICommandHandler<CreateFeesPaidDetailCommand> {
@@ -29,6 +30,8 @@ export class CreateFeesPaidDetailHandler implements ICommandHandler<CreateFeesPa
             this.event$.publish(new FeesPaidDetailCreatedEvent(result, { req: cmd }))
             return { success: true }
         } catch (err) {
+            const cmd = command.cmd
+            this.event$.publish(new FeesPaidDetailCreatedFailedEvent(cmd))
             this.logger.log(err)
         }
     }
