@@ -10,7 +10,7 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 upload.sh
-
+*-audit.json
 # OS
 .DS_Store
 
