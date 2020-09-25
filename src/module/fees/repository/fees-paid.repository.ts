@@ -6,7 +6,7 @@ import { FeesPaidDto } from "../dto";
 export class FeesPaidRepository extends Repository<FeesPaidEntity>{
 
     async createFeePaid(data: FeesPaidDto): Promise<FeesPaidEntity> {
-        const dto: Omit<FeesPaidDto, 'id'> = data
+        const {id,...dto} = data
         const entity = this.create(dto)
         return this.save(entity)
     }
