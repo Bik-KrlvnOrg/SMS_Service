@@ -10,4 +10,4 @@ Using Orchestration-based saga
 
 Compensating transactions to roll back changes
 
-![fees sagas overview](/img/fees_sagas.png)
+![fees sagas overview](/img/fees_sagas.svg)
