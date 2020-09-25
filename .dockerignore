@@ -1,0 +1,14 @@
+node_modules
+dist
+test
+.env.example
+.gitignore
+yarn-error.log
+pgdata
+.dockerignore
+Dockerfile
+mysql-dump
+env
+.vscode
+coverage
+sms-log

@@ -1,19 +1,38 @@
-version: '3'
+version: "3"
 
 services:
-  db:
+  sms-svc:
+    container_name: sms-svc
+    build:
+      context: .
+    image: "sms-svc:latest"
+    networks:
+      - sms-svc
+    depends_on:
+      - sms-db
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_HOST: sms-db
+      DATABASE_PORT: "3306"
+
+  sms-db:
     container_name: sms_mysql
     image: mysql:5.7
-    ports:
-      - ${DATABASE_PORT}:3306
+    expose:
+      - "3306"
+    networks:
+      - sms-svc
     environment:
       MYSQL_ROOT_PASSWORD: ${DATABASE_PASSWORD}
       MYSQL_USER: ${DATABASE_USER}
       MYSQL_PASSWORD: ${DATABASE_PASSWORD}
       MYSQL_DATABASE: ${DATABASE_DB}
-      DATABASE_HOST: ${DATABASE_HOST}
-    volumes: 
-        - ./mysql-dump/data:/var/lib/mysql
-        - ./mysql-dump:/docker-entrypoint-initdb.d
+    volumes:
+      - ./mysql-dump/data:/var/lib/mysql
+      - ./mysql-dump:/docker-entrypoint-initdb.d
 volumes:
   mysql-dump:
+
+networks:
+  sms-svc:
