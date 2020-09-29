@@ -1,7 +1,7 @@
 import { AdminRepository } from './admin.repository';
 import { Test } from '@nestjs/testing';
 import { CredentialDto, UserEntity } from '../auth/model/auth.model';
-import { AuthType } from '../auth/enum/auth.enum';
+import { AuthType } from '../libs';
 
 describe('AdminRepository', () => {
   let repository;

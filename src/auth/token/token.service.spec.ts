@@ -3,11 +3,11 @@ import { TokenService, JwtPayload, refreshTokenPayload } from './token.service';
 import { JwtService } from '@nestjs/jwt';
 import { TokenRepository } from './token.repository';
 import { UserEntity } from '../model/auth.model';
-import { AuthType } from '../enum/auth.enum';
 import { randomBytes } from 'crypto';
 import { BadRequestException } from '@nestjs/common';
-import { addMinutesToDate } from '../../utils/date-time.utils';
+import { addMinutesToDate } from '../../libs/utils/date-time.utils';
 import { TokenType } from './model/token.model';
+import { AuthType } from '../../libs';
 
 describe.only('TokenService', () => {
   let service: TokenService;

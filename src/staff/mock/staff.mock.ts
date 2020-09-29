@@ -1,4 +1,4 @@
-import { AuthType } from '../../auth/enum/auth.enum';
+import { AuthType } from "../../libs";
 
 export const StaffMocks = {
   profileDto: {

@@ -1,6 +1,5 @@
 import { IsEnum, IsNotEmpty, IsNumber, IsNumberString, IsOptional, IsString } from "class-validator";
-import { AuthType } from "../../../auth/enum/auth.enum";
-import { ReadStatus, MessageStatus, ReplyStatus } from "../../../libs";
+import { ReadStatus, MessageStatus, ReplyStatus, AuthType } from "../../../libs";
 
 export class GetNoticeMessageDto {
     @IsOptional()

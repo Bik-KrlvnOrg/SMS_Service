@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { StaffService } from './staff.service';
 import { UserEntity } from '../auth/model/auth.model';
-import { AuthType } from '../auth/enum/auth.enum';
 import { StaffRepository } from './staff.repository';
 import { StaffMocks } from './mock/staff.mock';
 import { NotFoundException } from '@nestjs/common';
+import { AuthType } from '../libs';
 
 const mockFunctions = () => ({
   getProfile: jest.fn(),

@@ -1,13 +1,13 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthService } from './auth.service';
-import { StudentRepository } from '../student/student.repository';
 import { CredentialDto, UserEntity, LoginResponse } from './model/auth.model';
-import { AuthType } from './enum/auth.enum';
 import { UnauthorizedException, BadRequestException } from '@nestjs/common';
 import { StaffRepository } from '../staff/staff.repository';
 import { AdminRepository } from '../admin/admin.repository';
 import { TokenService } from './token/token.service';
 import { RefreshTokenDto, TokenType } from './token/model/token.model';
+import { AuthType } from '../libs';
+import { StudentRepository } from '../module/student/repository';
 
 const mockRepository = () => ({
   getStudentWithCredential: jest.fn(),

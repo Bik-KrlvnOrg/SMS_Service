@@ -1,14 +1,16 @@
-import { AuthType } from '../enum/auth.enum';
-import { IsString } from 'class-validator';
+import { IsEnum, IsString } from 'class-validator';
+import { AuthType } from '../../libs';
 /**
  * Credential dto
  */
 export class CredentialDto {
   @IsString()
   username: string;
+  
   @IsString()
   password: string;
-  @IsString()
+
+  @IsEnum(AuthType)
   type: AuthType;
 }
 

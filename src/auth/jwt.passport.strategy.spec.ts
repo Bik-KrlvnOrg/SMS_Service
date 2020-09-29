@@ -1,14 +1,14 @@
 import { Test } from '@nestjs/testing';
 import { JwtPassportStrategy } from './jwt.passport.strategy';
-import { StudentRepository } from '../student/student.repository';
 import { StaffRepository } from '../staff/staff.repository';
 import { AdminRepository } from '../admin/admin.repository';
-import { AuthType } from './enum/auth.enum';
 import { UserEntity } from './model/auth.model';
 import { UnauthorizedException } from '@nestjs/common';
+import { AuthType } from '../libs';
+import { StudentRepository } from '../module/student/repository';
 
 const mockRepository = () => ({
-  getStudentWithPayload: jest.fn(),
+  getStudentById: jest.fn(),
   getStaffWithPayload: jest.fn(),
   getAdminWithPayload: jest.fn(),
 });
@@ -36,7 +36,7 @@ const payload: UserEntity = {
 };
 describe('JWtPassportStrategy', () => {
   let jwtService: JwtPassportStrategy;
-  let studentRepository;
+  let studentRepository:StudentRepository;
   let staffRepository;
   let adminRepository;
 
@@ -67,7 +67,8 @@ describe('JWtPassportStrategy', () => {
     studentPayload.type = AuthType.STUDENT;
     const actual: UserEntity = studentPayload;
 
-    studentRepository.getStudentWithPayload.mockResolvedValue(studentData);
+    //@ts-ignore
+    studentRepository.getStudentById.mockResolvedValue(studentData);
     const expected = await jwtService.validate(studentPayload);
     expect(expected).toEqual(actual);
   });
@@ -101,7 +102,8 @@ describe('JWtPassportStrategy', () => {
     it('should throw an error if student is not found', async () => {
       const studentPayload = Object.assign({}, payload);
       studentPayload.type = AuthType.STUDENT;
-      studentRepository.getStudentWithPayload.mockResolvedValue(null);
+      //@ts-ignore
+      studentRepository.getStudentById.mockResolvedValue(null);
       expect(jwtService.validate(studentPayload)).rejects.toThrow(
         UnauthorizedException,
       );

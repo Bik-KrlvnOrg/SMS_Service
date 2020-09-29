@@ -1,8 +1,8 @@
 import { Body, Controller, ForbiddenException, Get, Post, Query, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from '../../auth/decorator/get-user.decorator';
-import { AuthType } from '../../auth/enum/auth.enum';
 import { UserEntity } from '../../auth/model/auth.model';
+import { AuthType } from '../../libs';
 import { ResponseObject } from '../../model/response.model';
 import { FeesToPayDto, FindFeesPaidDto } from './dto';
 import { FeesService } from './fees.service';
