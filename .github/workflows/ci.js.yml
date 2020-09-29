@@ -36,7 +36,7 @@ jobs:
           ENV_SECRET: ${{secrets.ENV_SECRET}}
 
       - name: Unit test
-        run: npm test:cov
+        run: npm run test:cov
   
 
       - name: Upload coverage to Codecov
