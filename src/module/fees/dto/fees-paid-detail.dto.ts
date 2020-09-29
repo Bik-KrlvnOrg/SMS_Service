@@ -7,5 +7,5 @@ export class FeesPaidDetailDto {
 
     amount: string;
 
-    createdOn?: string;
+    createdOn?: Date;
 }
