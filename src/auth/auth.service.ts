@@ -3,14 +3,14 @@ import {
   UnauthorizedException,
   BadRequestException,
 } from '@nestjs/common';
-import { StudentRepository } from '../student/student.repository';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CredentialDto, UserEntity, LoginResponse } from './model/auth.model';
-import { AuthType } from './enum/auth.enum';
 import { StaffRepository } from '../staff/staff.repository';
 import { AdminRepository } from '../admin/admin.repository';
 import { TokenService } from './token/token.service';
 import { RefreshTokenDto } from './token/model/token.model';
+import { AuthType } from '../libs';
+import { StudentRepository } from '../module/student/repository';
 
 /**
  * Auth service
@@ -95,8 +95,8 @@ export class AuthService {
     if (!student) throw new UnauthorizedException('invalid credentials');
 
     const payload: UserEntity = {
-      username: student.preStudentUsername,
-      id: student.esPreadmissionid,
+      username: student.username,
+      id: student.id,
       type,
     };
     return payload;

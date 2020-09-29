@@ -1,6 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { Exclude, classToPlain } from 'class-transformer';
-import { toSimpleShortDate } from '../utils/date-time.utils';
+import { toSimpleShortDate } from '../libs/utils/date-time.utils';
 
 @Entity('es_staff', { schema: 'school' })
 export class EsStaff {

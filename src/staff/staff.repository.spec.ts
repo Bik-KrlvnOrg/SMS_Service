@@ -1,8 +1,8 @@
 import { Test } from '@nestjs/testing';
 import { StaffRepository } from './staff.repository';
 import { CredentialDto } from '../auth/model/auth.model';
-import { AuthType } from '../auth/enum/auth.enum';
 import { StaffMocks } from './mock/staff.mock';
+import { AuthType } from '../libs';
 
 describe('StaffRepository', () => {
   let repository;

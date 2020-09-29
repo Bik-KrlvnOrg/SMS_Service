@@ -19,6 +19,8 @@ services:
   sms-db:
     container_name: sms_mysql
     image: mysql:5.7
+    # ports:
+    #     - "3406:3306"
     expose:
       - "3306"
     networks:

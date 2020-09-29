@@ -3,7 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { UserEntity } from '../model/auth.model';
 import { InjectRepository } from '@nestjs/typeorm';
 import { randomBytes } from 'crypto';
-import { toHumanFullDate, addDaysToDate } from '../../utils/date-time.utils';
+import { toHumanFullDate, addDaysToDate } from '../../libs/utils/date-time.utils';
 import { TokenRepository } from './token.repository';
 import { TokenType } from './model/token.model';
 

@@ -1,4 +1,3 @@
-import { AuthType } from "../../../auth/enum/auth.enum"
 import { EsNoticeMessages } from "../../../entities/EsNoticeMessages"
 import { MessageStatus } from "../../../libs"
 import { GetNoticeMessageDto, NoticeMessageDto } from "../dto/notice-message.dto"

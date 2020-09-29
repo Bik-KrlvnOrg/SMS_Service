@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { AuthType } from '../libs';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { LoginResponse, CredentialDto } from './model/auth.model';
-import { AuthType } from './enum/auth.enum';
 import { RefreshTokenDto, TokenType } from './token/model/token.model';
 
 describe('Auth Controller', () => {
@@ -50,7 +50,6 @@ describe('Auth Controller', () => {
         .spyOn(service, 'authenticate')
         .mockImplementation(() => Promise.resolve(loginPayload));
       const expected = await controller.login(credential);
-      console.log('exp',expected)
       expect(expected).toBe(loginPayload);
     });
   });
