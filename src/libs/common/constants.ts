@@ -41,3 +41,8 @@ export enum Gender {
     MALE = 'male',
     FEMALE = 'female'
 }
+
+export enum AttendanceStatus {
+    PRESENT = 'P',
+    ABSENT = 'A'
+}
