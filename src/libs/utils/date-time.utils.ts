@@ -19,3 +19,7 @@ export const addDaysToDate = (days: string | number): Date => {
 export const toSimpleShortDate = (dataTime: Date | string): string => {
   return moment(dataTime).format("DD MMM YYYY")
 };
+
+export const applyDateToString = (dateString?: string): string => {
+  return !dateString ? new Date().toLocaleDateString() : dateString
+}

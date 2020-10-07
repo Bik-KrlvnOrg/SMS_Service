@@ -36,3 +36,4 @@ upload.sh
 .env
 mysql-dump/data
 upload_to_server.sh
+docker-compose.dev.yml

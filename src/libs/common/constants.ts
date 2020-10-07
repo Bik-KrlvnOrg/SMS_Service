@@ -41,3 +41,19 @@ export enum Gender {
     MALE = 'male',
     FEMALE = 'female'
 }
+
+export enum AttendanceStatus {
+    PRESENT = 'P',
+    ABSENT = 'A'
+}
+
+export enum StaffRemarks {
+    PAID_LEAVE = "PAID LEAVE",
+    UN_PAID_LEAVE = "UNPAID LEAVE"
+}
+
+
+export enum RecordSort {
+    ASC = "ASC",
+    DESC = "DESC",
+}

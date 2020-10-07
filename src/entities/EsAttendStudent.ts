@@ -1,40 +1,46 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { AttendanceStatus } from "../libs";
 
 @Entity("es_attend_student", { schema: "school" })
-export class EsAttendStudent {
+export class StudentAttendanceEntity {
   @PrimaryGeneratedColumn({ type: "int", name: "es_attend_studentid" })
-  esAttendStudentid: number;
+  id: number;
 
   @Column("varchar", { name: "at_std_group", length: 255 })
-  atStdGroup: string;
+  group: string = "";
 
   @Column("varchar", { name: "at_std_class", length: 255 })
-  atStdClass: string;
+  classId: number;
 
   @Column("datetime", { name: "at_attendance_date" })
-  atAttendanceDate: Date;
+  createdOn: Date;
 
   @Column("varchar", { name: "at_std_subject", length: 255 })
-  atStdSubject: string;
+  subject: string = "";
 
   @Column("int", { name: "at_std_period" })
-  atStdPeriod: number;
+  period: number = 0;
 
   @Column("int", { name: "at_period_from" })
-  atPeriodFrom: number;
+  periodFrom: number = 0;
 
   @Column("int", { name: "at_period_to" })
-  atPeriodTo: number;
+  periodTo: number = 0;
 
   @Column("varchar", { name: "at_reg_no", length: 255 })
-  atRegNo: string;
+  studentId: number;
 
   @Column("varchar", { name: "at_stud_name", length: 255 })
-  atStudName: string;
+  name: string;
 
   @Column("varchar", { name: "at_attendance", length: 255 })
-  atAttendance: string;
+  status: AttendanceStatus;
 
   @Column("varchar", { name: "at_remarks", length: 255 })
-  atRemarks: string;
+  remarks: string = "";
+
+  @BeforeInsert()
+  setDefaults() {
+    this.createdOn = new Date()
+  }
 }
