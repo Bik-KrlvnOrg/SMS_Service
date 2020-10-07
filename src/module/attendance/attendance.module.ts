@@ -7,10 +7,20 @@ import { StaffAttendanceCreatedHandler, StudentAttendanceCreatedHandler } from '
 import { StaffAttendanceRepository, StudentAttendanceRepository } from './repository';
 import { AttendanceController } from './attendance.controller';
 import { AuthModule } from '../../auth/auth.module';
+import { GetStaffAttendanceHandler, GetStudentsAttendanceHandler } from './query';
 
-const CommandHandlers = [CreateStudentAttendanceHandler, CreateStaffAttendanceHandler]
-const EventHandlers = [StudentAttendanceCreatedHandler, StaffAttendanceCreatedHandler]
-
+const CommandHandlers = [
+    CreateStudentAttendanceHandler,
+    CreateStaffAttendanceHandler
+]
+const EventHandlers = [
+    StudentAttendanceCreatedHandler,
+    StaffAttendanceCreatedHandler
+]
+const QueryHandlers = [
+    GetStaffAttendanceHandler,
+    GetStudentsAttendanceHandler
+]
 @Module({
     imports: [
         CqrsModule,
@@ -18,7 +28,12 @@ const EventHandlers = [StudentAttendanceCreatedHandler, StaffAttendanceCreatedHa
             StaffAttendanceRepository,
             StudentAttendanceRepository
         ]), AuthModule],
-    providers: [...CommandHandlers, ...EventHandlers, AttendanceService],
+    providers: [
+        ...CommandHandlers,
+        ...EventHandlers,
+        ...QueryHandlers,
+        AttendanceService
+    ],
     controllers: [AttendanceController]
 })
 export class AttendanceModule { }
