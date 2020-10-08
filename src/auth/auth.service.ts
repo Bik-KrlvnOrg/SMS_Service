@@ -5,12 +5,12 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CredentialDto, UserEntity, LoginResponse } from './model/auth.model';
-import { StaffRepository } from '../staff/staff.repository';
 import { AdminRepository } from '../admin/admin.repository';
 import { TokenService } from './token/token.service';
 import { RefreshTokenDto } from './token/model/token.model';
 import { AuthType } from '../libs';
 import { StudentRepository } from '../module/student/repository';
+import { StaffRepository } from '../module/staff/repository';
 
 /**
  * Auth service
@@ -29,7 +29,7 @@ export class AuthService {
     @InjectRepository(StaffRepository) private staffRepository: StaffRepository,
     @InjectRepository(AdminRepository) private adminRepository: AdminRepository,
     private tokenService: TokenService,
-  ) {}
+  ) { }
 
   /**
    * authenticate
@@ -92,7 +92,7 @@ export class AuthService {
       credential,
     );
 
-    if (!student) throw new UnauthorizedException('invalid credentials');
+    if (!student) throw new UnauthorizedException();
 
     const payload: UserEntity = {
       username: student.username,
@@ -113,12 +113,13 @@ export class AuthService {
     const { type } = credential;
     const staff = await this.staffRepository.getStaffWithCredential(credential);
 
-    if (!staff) throw new UnauthorizedException('invalid credentials');
+    if (!staff) throw new UnauthorizedException();
 
     const payload: UserEntity = {
-      username: staff.stUsername,
-      id: staff.esStaffid,
+      username: staff.username,
+      id: staff.id,
       type,
+      departmentId: staff.departmentId
     };
     return payload;
   }
@@ -134,7 +135,7 @@ export class AuthService {
     const { type } = credential;
     const admin = await this.adminRepository.getAdminWithCredential(credential);
 
-    if (!admin) throw new UnauthorizedException('invalid credentials');
+    if (!admin) throw new UnauthorizedException();
 
     const payload: UserEntity = {
       username: admin.adminUsername,

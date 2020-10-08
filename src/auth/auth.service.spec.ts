@@ -2,12 +2,12 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AuthService } from './auth.service';
 import { CredentialDto, UserEntity, LoginResponse } from './model/auth.model';
 import { UnauthorizedException, BadRequestException } from '@nestjs/common';
-import { StaffRepository } from '../staff/staff.repository';
 import { AdminRepository } from '../admin/admin.repository';
 import { TokenService } from './token/token.service';
 import { RefreshTokenDto, TokenType } from './token/model/token.model';
 import { AuthType } from '../libs';
 import { StudentRepository } from '../module/student/repository';
+import { StaffRepository } from '../module/staff/repository';
 
 const mockRepository = () => ({
   getStudentWithCredential: jest.fn(),
@@ -22,8 +22,8 @@ const mockTokenService = () => ({
 
 describe('AuthService', () => {
   let service: AuthService;
-  let studenRepository;
-  let staffRepository;
+  let studenRepository: StudentRepository;
+  let staffRepository: StaffRepository;
   let adminRepository;
   let tokenService;
 
@@ -34,13 +34,13 @@ describe('AuthService', () => {
   };
 
   const studentData = {
-    preStudentUsername: 'any_username',
-    esPreadmissionid: 1,
+    username: 'any_username',
+    id: 1,
   };
 
   const staffData = {
-    stUsername: 'any_username',
-    esStaffid: 1,
+    username: 'any_username',
+    id: 1,
   };
 
   const adminData = {
@@ -57,7 +57,7 @@ describe('AuthService', () => {
   const loginPayload: LoginResponse = {
     accessToken: 'any_token',
     refreshToken: 'any_refresh',
-    tokenType:TokenType['Bearer']
+    tokenType: TokenType['Bearer']
   };
 
   const refreshTokenDto: RefreshTokenDto = {
@@ -84,6 +84,7 @@ describe('AuthService', () => {
     tokenService.generateAccessToken.mockResolvedValue(loginPayload);
   });
 
+  
   it('should throw an error as user type not found', () => {
     const cred = Object.assign({}, credential);
     cred.type = AuthType['unknown'];
@@ -98,6 +99,7 @@ describe('AuthService', () => {
     studentPayload.type = AuthType.STUDENT;
 
     it('should return access token for auth user', async () => {
+      //@ts-ignore
       studenRepository.getStudentWithCredential.mockResolvedValue(mockData);
 
       const result = await service.authenticate(studentCredential);
@@ -108,6 +110,7 @@ describe('AuthService', () => {
     });
 
     it('should throw unAuthorize error with invalid credentials', async () => {
+      //@ts-ignore
       studenRepository.getStudentWithCredential.mockResolvedValue(null);
       expect(service.authenticate(studentCredential)).rejects.toThrow(
         UnauthorizedException,
@@ -123,6 +126,7 @@ describe('AuthService', () => {
     staffPayload.type = AuthType.STAFF;
 
     it('should return staff payload', async () => {
+      //@ts-ignore
       staffRepository.getStaffWithCredential.mockResolvedValue(mockData);
       const result = await service.authenticate(staffCredential);
       expect(staffRepository.getStaffWithCredential).toHaveBeenCalledWith(
@@ -132,6 +136,7 @@ describe('AuthService', () => {
     });
 
     it('should throw unAuthorize error with invalid credentials', async () => {
+      //@ts-ignore
       staffRepository.getStaffWithCredential.mockResolvedValue(null);
       expect(service.authenticate(staffCredential)).rejects.toThrow(
         UnauthorizedException,

@@ -6,7 +6,7 @@ import { AuthType } from '../../libs';
 export class CredentialDto {
   @IsString()
   username: string;
-  
+
   @IsString()
   password: string;
 
@@ -21,7 +21,8 @@ export class UserEntity {
   id: number;
   username: string;
   type: AuthType;
-  school?:number
+  school?: number;
+  departmentId?: number;
 }
 
 /**

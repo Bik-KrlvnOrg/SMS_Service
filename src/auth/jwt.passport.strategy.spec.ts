@@ -1,26 +1,26 @@
 import { Test } from '@nestjs/testing';
 import { JwtPassportStrategy } from './jwt.passport.strategy';
-import { StaffRepository } from '../staff/staff.repository';
 import { AdminRepository } from '../admin/admin.repository';
 import { UserEntity } from './model/auth.model';
 import { UnauthorizedException } from '@nestjs/common';
 import { AuthType } from '../libs';
 import { StudentRepository } from '../module/student/repository';
+import { StaffRepository } from '../module/staff/repository';
 
 const mockRepository = () => ({
   getStudentById: jest.fn(),
-  getStaffWithPayload: jest.fn(),
+  getStaffById: jest.fn(),
   getAdminWithPayload: jest.fn(),
 });
 
 const studentData = {
-  preStudentUsername: 'any_username',
-  esPreadmissionid: 1,
+  username: 'any_username',
+  id: 1,
 };
 
 const staffData = {
-  stUsername: 'any_username',
-  esStaffid: 1,
+  username: 'any_username',
+  id: 1,
 };
 
 const adminData = {
@@ -36,9 +36,9 @@ const payload: UserEntity = {
 };
 describe('JWtPassportStrategy', () => {
   let jwtService: JwtPassportStrategy;
-  let studentRepository:StudentRepository;
-  let staffRepository;
-  let adminRepository;
+  let studentRepository: StudentRepository;
+  let staffRepository: StaffRepository
+  let adminRepository
 
   beforeEach(async () => {
     const module = await Test.createTestingModule({
@@ -77,15 +77,14 @@ describe('JWtPassportStrategy', () => {
     const staffPayload = Object.assign({}, payload);
     staffPayload.type = AuthType.STAFF;
     const actual: UserEntity = staffPayload;
-
-    staffRepository.getStaffWithPayload.mockResolvedValue(staffData);
+    //@ts-ignore
+    staffRepository.getStaffById.mockResolvedValue(staffData);
     const expected = await jwtService.validate(staffPayload);
     expect(expected).toEqual(actual);
   });
 
   it('should get user entity with type admin', async () => {
     const actual: UserEntity = payload;
-
     adminRepository.getAdminWithPayload.mockResolvedValue(adminData);
     const expected = await jwtService.validate(payload);
     expect(expected).toEqual(actual);
@@ -112,7 +111,8 @@ describe('JWtPassportStrategy', () => {
     it('should throw an error if staff is not found', async () => {
       const staffPayload = Object.assign({}, payload);
       staffPayload.type = AuthType.STAFF;
-      staffRepository.getStaffWithPayload.mockResolvedValue(null);
+      //@ts-ignore
+      staffRepository.getStaffById.mockResolvedValue(null);
       expect(jwtService.validate(staffPayload)).rejects.toThrow(
         UnauthorizedException,
       );

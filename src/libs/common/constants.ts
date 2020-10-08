@@ -57,3 +57,13 @@ export enum RecordSort {
     ASC = "ASC",
     DESC = "DESC",
 }
+
+export enum StaffType {
+    TEACHING = "teaching",
+    NON_TEACHING = "nonteaching"
+}
+
+export enum MaritalStatus{
+    MARRIED = "Married",
+    NOT_MARRIED = "Unmarried",
+}

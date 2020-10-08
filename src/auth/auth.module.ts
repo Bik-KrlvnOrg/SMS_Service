@@ -4,12 +4,12 @@ import { PassportModule } from '@nestjs/passport';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { StaffRepository } from '../staff/staff.repository';
 import { JwtPassportStrategy } from './jwt.passport.strategy';
 import { AdminRepository } from '../admin/admin.repository';
 import { TokenService } from './token/token.service';
 import { TokenRepository } from './token/token.repository';
 import { StudentRepository } from '../module/student/repository';
+import { StaffRepository } from '../module/staff/repository';
 
 @Module({
   imports: [
