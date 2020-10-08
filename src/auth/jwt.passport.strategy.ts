@@ -2,11 +2,11 @@ import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { UserEntity } from './model/auth.model';
 import { InjectRepository } from '@nestjs/typeorm';
-import { StaffRepository } from '../staff/staff.repository';
 import { AdminRepository } from '../admin/admin.repository';
 import { UnauthorizedException, Injectable } from '@nestjs/common';
 import { AuthType } from '../libs';
 import { StudentRepository } from '../module/student/repository';
+import { StaffRepository } from '../module/staff/repository';
 
 @Injectable()
 export class JwtPassportStrategy extends PassportStrategy(Strategy) {
@@ -34,6 +34,7 @@ export class JwtPassportStrategy extends PassportStrategy(Strategy) {
     if (payload.type === AuthType.STUDENT) return this.getStudent(payload);
     throw new Error(`type: '${payload.type}' not implemented`);
   }
+  
   private async getAdmin(user: UserEntity) {
     const admin = await this.adminRepository.getAdminWithPayload(user);
     if (!admin) return null;
@@ -41,7 +42,7 @@ export class JwtPassportStrategy extends PassportStrategy(Strategy) {
   }
 
   private async getStaff(user: UserEntity): Promise<UserEntity> {
-    const staff = await this.staffRepository.getStaffWithPayload(user);
+    const staff = await this.staffRepository.getStaffById(user.id);
     if (!staff) return null;
     return user;
   }
