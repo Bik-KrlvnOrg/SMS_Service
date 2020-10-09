@@ -11,6 +11,7 @@ yarn-error.log*
 lerna-debug.log*
 upload.sh
 *-audit.json
+*-data
 # OS
 .DS_Store
 

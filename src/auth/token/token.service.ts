@@ -6,6 +6,7 @@ import { randomBytes } from 'crypto';
 import { toHumanFullDate, addDaysToDate } from '../../libs/utils/date-time.utils';
 import { TokenRepository } from './token.repository';
 import { TokenType } from './model/token.model';
+import { ConfigService } from '@nestjs/config';
 
 export interface refreshTokenPayload {
   refreshToken: string;
@@ -31,6 +32,7 @@ export class TokenService {
   constructor(
     @InjectRepository(TokenRepository) private tokenRepository: TokenRepository,
     private jwtService: JwtService,
+    private readonly configService:ConfigService
   ) {}
   /**
    * generateAccessToken
@@ -63,7 +65,7 @@ export class TokenService {
       clientId,
       clientName,
       token,
-      addDaysToDate(process.env.JWT_EXPIRE_RERESH),
+      addDaysToDate(this.configService.get('jwt.refresh')),
     );
   }
 

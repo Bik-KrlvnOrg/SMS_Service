@@ -20,6 +20,7 @@ export class JwtPassportStrategy extends PassportStrategy(Strategy) {
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       secretOrKey: process.env.JWT_SECRET,
     });
+    console.log('secret', process.env.JWT_SECRET);
   }
 
   async validate(payload: UserEntity): Promise<UserEntity> {
@@ -34,7 +35,7 @@ export class JwtPassportStrategy extends PassportStrategy(Strategy) {
     if (payload.type === AuthType.STUDENT) return this.getStudent(payload);
     throw new Error(`type: '${payload.type}' not implemented`);
   }
-  
+
   private async getAdmin(user: UserEntity) {
     const admin = await this.adminRepository.getAdminWithPayload(user);
     if (!admin) return null;
