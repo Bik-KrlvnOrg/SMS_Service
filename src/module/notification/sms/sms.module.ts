@@ -1,4 +1,7 @@
 import { Module } from '@nestjs/common';
+import { HubtelSmsService } from './service';
 
-@Module({})
-export class SmsModule {}
+@Module({
+    providers: [HubtelSmsService]
+})
+export class SmsModule { }

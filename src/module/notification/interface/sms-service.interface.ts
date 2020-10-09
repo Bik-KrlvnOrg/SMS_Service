@@ -1,3 +1,3 @@
 export interface ISmsService<T extends any> {
-    sendMessage(body: T);
+    sendMessage(body: T): Promise<void>
 }
