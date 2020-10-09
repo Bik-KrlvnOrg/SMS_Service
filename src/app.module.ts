@@ -10,6 +10,7 @@ import { FeesModule } from './module/fees/fees.module';
 import { StudentModule } from './module/student/student.module';
 import { AttendanceModule } from './module/attendance/attendance.module';
 import { StaffModule } from './module/staff/staff.module';
+import { NotificationModule } from './module/notification/notification.module';
 
 
 @Module({
@@ -21,7 +22,8 @@ import { StaffModule } from './module/staff/staff.module';
     NoticeMessageModule,
     FeesModule,
     StudentModule,
-    AttendanceModule
+    AttendanceModule,
+    NotificationModule
   ],
   controllers: [AppController],
   providers: [AppService],
