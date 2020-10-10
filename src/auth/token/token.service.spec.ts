@@ -8,6 +8,7 @@ import { BadRequestException } from '@nestjs/common';
 import { addMinutesToDate } from '../../libs/utils/date-time.utils';
 import { TokenType } from './model/token.model';
 import { AuthType } from '../../libs';
+import { ConfigService } from '@nestjs/config';
 
 describe.only('TokenService', () => {
   let service: TokenService;
@@ -20,6 +21,7 @@ describe.only('TokenService', () => {
     createToken: jest.fn(),
     findOne: jest.fn(),
     delete: jest.fn(),
+    get: jest.fn(),
   });
 
   const authPayload: UserEntity = {
@@ -31,7 +33,7 @@ describe.only('TokenService', () => {
   const jwtPayload: JwtPayload = {
     accessToken: randomBytes(64).toString('hex'),
     refreshToken: randomBytes(64).toString('hex'),
-    tokenType:TokenType.Bearer
+    tokenType: TokenType.Bearer
   };
 
   const refreshTokenPayload: refreshTokenPayload = {
@@ -48,6 +50,7 @@ describe.only('TokenService', () => {
           useFactory: mockClassFunctions,
         },
         { provide: TokenRepository, useFactory: mockClassFunctions },
+        { provide: ConfigService, useFactory: mockClassFunctions }
       ],
     }).compile();
 
@@ -62,7 +65,7 @@ describe.only('TokenService', () => {
       const expected = await service.generateAccessToken(authPayload);
       expect(expected.accessToken).toEqual(jwtPayload.accessToken);
       expect(expected.refreshToken).not.toBeNull();
-      expect(repository.createToken).toHaveBeenCalled();
+      expect(repository.createToken).toHaveBeenCalled(); 
     });
   });
 

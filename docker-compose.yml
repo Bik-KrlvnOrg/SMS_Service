@@ -8,13 +8,17 @@ services:
     image: "sms-svc:latest"
     networks:
       - sms-svc
+      - cache
     depends_on:
       - sms-db
+      - sms-cache
     ports:
       - "3000:3000"
     environment:
       DATABASE_HOST: sms-db
       DATABASE_PORT: "3306"
+      REDIS_HOST: sms-cache
+      REDIS_PORT: 6379
 
   sms-db:
     container_name: sms_mysql
@@ -33,8 +37,26 @@ services:
     volumes:
       - ./mysql-dump/data:/var/lib/mysql
       - ./mysql-dump:/docker-entrypoint-initdb.d
+
+  sms-cache:
+    container_name: sms_cache
+    image: redis:6.0.8
+    # ports:
+    #   - "${REDIS_PORT}:6379"
+    networks:
+      - sms-svc
+      - cache
+    expose:
+      - "6379"
+    entrypoint: redis-server --appendonly yes
+    restart: "always"
+    volumes:
+      - ./redis-data:/data
+
 volumes:
   mysql-dump:
+  redis-data:
 
 networks:
   sms-svc:
+  cache:

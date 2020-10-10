@@ -37,7 +37,7 @@ export class StaffEntity {
 
   @Exclude()
   @Column('varchar', { name: 'st_permissions', length: 255 })
-  permissions: string;
+  permissions: string = "";
 
   @Column('varchar', { name: 'st_pradress', length: 255 })
   address: string;
@@ -144,7 +144,7 @@ export class StaffEntity {
 
   @Exclude()
   @Column('varchar', { name: 'st_attach3', length: 255 })
-  stAttach3: string;
+  stAttach3: string = "";
 
   @Exclude()
   @Column('varchar', { name: 'st_attach4', length: 255 })
@@ -272,7 +272,7 @@ export class StaffEntity {
 
   @Exclude()
   @Column('varchar', { name: 'st_peresino', length: 255 })
-  stPeresino: string;
+  stPeresino: string = "";
 
   @Exclude()
   @Column('varchar', { name: 'st_pecountry', length: 255 })
@@ -376,7 +376,7 @@ export class StaffEntity {
 
   @Exclude()
   @Column('varchar', { name: 'hrdsid', length: 255 })
-  hrdsid: string;
+  hrdsid: string = "";
 
   @Exclude()
   @Column('varchar', { name: 'st_mail', length: 222 })
@@ -428,7 +428,7 @@ export class StaffEntity {
 
   @Exclude()
   @Column('varchar', { name: 'relation2', length: 255 })
-  relation2: string;
+  relation2: string = "";
 
   @Exclude()
   @Column('varchar', { name: 'relation3', length: 255 })
@@ -463,7 +463,7 @@ export class StaffEntity {
 
   @Exclude()
   @Column('varchar', { name: 'occupation1', length: 255 })
-  occupation1: string;
+  occupation1: string = "";
 
   @Exclude()
   @Column('varchar', { name: 'occupation2', length: 255 })

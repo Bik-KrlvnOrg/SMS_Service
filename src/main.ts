@@ -1,16 +1,16 @@
-import * as dotenv from 'dotenv';
-dotenv.config();
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { WinstonModule } from 'nest-winston';
 import * as winston from 'winston'
 import 'winston-daily-rotate-file'
+import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const configService: ConfigService = app.get(ConfigService)
   app.useGlobalPipes(new ValidationPipe())
-  if (process.env.NODE_ENV !== 'development') {
+  if (configService.get('env') !== 'development') {
     app.useLogger(WinstonModule.createLogger({
       level: 'info',
       format: winston.format.combine(
@@ -19,17 +19,12 @@ async function bootstrap() {
       ),
       transports: [
         new winston.transports.DailyRotateFile(
-          {
-            filename: 'sms-service-%DATE%.log',
-            datePattern: 'YYYY-MM-DD-HH',
-            zippedArchive: true,
-            maxSize: '20m',
-            maxFiles: '14d'
-          })
+          configService.get('winston.dailyFormat')
+        )
       ]
     }))
   }
-  const port = process.env.PORT || 3000
+  const port = configService.get<number>('port')
   await app.listen(port);
 }
 bootstrap();

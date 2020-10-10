@@ -63,7 +63,19 @@ export enum StaffType {
     NON_TEACHING = "nonteaching"
 }
 
-export enum MaritalStatus{
+export enum MaritalStatus {
     MARRIED = "Married",
     NOT_MARRIED = "Unmarried",
+}
+
+export const QUEUE_PROCESS_ID = {
+    staffRegistered: 'staffRegistered'
+}
+
+export const QUEUE_PROCESSOR = {
+    NOTIFICATION: 'notification_queue'
+}
+
+export const PROVIDERS = {
+    HUBTEL_SERVICE: 'HUBTEL_SERVICE'
 }

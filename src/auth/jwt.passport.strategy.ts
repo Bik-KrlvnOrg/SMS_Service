@@ -34,7 +34,7 @@ export class JwtPassportStrategy extends PassportStrategy(Strategy) {
     if (payload.type === AuthType.STUDENT) return this.getStudent(payload);
     throw new Error(`type: '${payload.type}' not implemented`);
   }
-  
+
   private async getAdmin(user: UserEntity) {
     const admin = await this.adminRepository.getAdminWithPayload(user);
     if (!admin) return null;

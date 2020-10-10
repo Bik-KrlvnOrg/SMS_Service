@@ -8,6 +8,8 @@ import { CreateStaffHandler } from './command';
 import { StaffCreatedHandler } from './event';
 import { AuthModule } from '../../auth/auth.module';
 import { GetStaffProfileHandler } from './query';
+import { StaffSagas } from './saga/staff.sagas';
+import { NotificationModule } from '../notification/notification.module';
 
 const CommandHandlers = [CreateStaffHandler]
 const EventHandlers = [StaffCreatedHandler]
@@ -17,13 +19,13 @@ const QueryHandlers = [GetStaffProfileHandler]
     imports: [
         CqrsModule,
         TypeOrmModule.forFeature([StaffRepository]),
-        AuthModule
+        AuthModule, NotificationModule
     ],
     providers: [
         ...CommandHandlers,
         ...EventHandlers,
         ...QueryHandlers,
-        StaffService],
+        StaffService, StaffSagas],
     controllers: [StaffController]
 })
 export class StaffModule { }

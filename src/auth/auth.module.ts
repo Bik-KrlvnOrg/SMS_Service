@@ -10,13 +10,13 @@ import { TokenService } from './token/token.service';
 import { TokenRepository } from './token/token.repository';
 import { StudentRepository } from '../module/student/repository';
 import { StaffRepository } from '../module/staff/repository';
+import { JwtConfigService } from '../libs';
 
 @Module({
   imports: [
     PassportModule.register({ defaultStrategy: 'jwt' }),
-    JwtModule.register({
-      secret: process.env.JWT_SECRET,
-      signOptions: { expiresIn: process.env.JWT_EXPIRE },
+    JwtModule.registerAsync({
+      useClass: JwtConfigService
     }),
     TypeOrmModule.forFeature([
       StudentRepository,
@@ -29,4 +29,4 @@ import { StaffRepository } from '../module/staff/repository';
   controllers: [AuthController],
   exports: [JwtPassportStrategy, PassportModule],
 })
-export class AuthModule {}
+export class AuthModule { }
