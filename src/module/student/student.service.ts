@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { from } from 'rxjs';
+import { from, Observable } from 'rxjs';
+import { StudentEntity } from '../../entities/EsPreadmission';
 import { CreateStudentCommand } from './command';
 import { AdmissionDto } from './dto';
 import { GetStudentProfileQuery } from './query';
@@ -12,8 +13,8 @@ export class StudentService {
     async createStudent(data: AdmissionDto) {
         return from(this.commandBus.execute(new CreateStudentCommand(data)))
     }
-
-    async getProfile(userId: number) {
+    
+    getProfile(userId: number):Observable<StudentEntity> {
         return from(this.queryBus.execute(new GetStudentProfileQuery(userId)))
     }
 }
