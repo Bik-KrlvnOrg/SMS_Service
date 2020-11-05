@@ -1,5 +1,6 @@
 import { Body, Controller, ForbiddenException, Get, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { map } from 'rxjs/operators';
 import { GetUser } from '../../auth/decorator/get-user.decorator';
 import { UserEntity } from '../../auth/model/auth.model';
 import { AuthType } from '../../libs';
@@ -25,8 +26,9 @@ export class StudentController {
     @Get('profile')
     async getProfile(@GetUser() user: UserEntity): Promise<ResponseObject<'data', any>> {
         if (user.type !== AuthType.STUDENT) throw new ForbiddenException()
-        const result = await (await this.service.getProfile(user.id)).toPromise()
-        return { data: { success: true, studentProfile: result } }
+        const result = await this.service.getProfile(user.id)
+            .pipe(map(data => data.toJSON())).toPromise()
+        return { data: { ...result } }
     }
 
 
