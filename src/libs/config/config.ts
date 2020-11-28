@@ -14,10 +14,10 @@ export const config = () => ({
         password: process.env.DATABASE_PASSWORD,
         host: process.env.DATABASE_HOST,
         port: parseInt(process.env.DATABASE_PORT, 10),
-        synchronize: false,
+        synchronize: JSON.parse(process.env.DB_SYNC),
         entities: ['dist/entities/*.js'],
-        logging: false,
-        dropSchema: false
+        logging: JSON.parse(process.env.DB_LOG),
+        dropSchema: JSON.parse(process.env.DB_DROP)
     },
     winston: {
         dailyFormat: {
