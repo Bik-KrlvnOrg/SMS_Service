@@ -16,23 +16,23 @@ export class FeesController {
     async payFees(@GetUser() user: UserEntity, @Body() dto: FeesToPayDto): Promise<ResponseObject<'data', any>> {
         if (user.type !== AuthType.ADMIN) throw new ForbiddenException("You don't have access")
         const result = await (await this.service.payFees(dto)).toPromise()
-        return { data: { success: true, ...result } }
+        return { data: result }
     }
 
     @UseGuards(AuthGuard())
     @Get('student')
-    async getStudentFeesPaid(@GetUser() user: UserEntity,@Query() dto:FindFeesPaidDto): Promise<ResponseObject<'data', any>> {
+    async getStudentFeesPaid(@GetUser() user: UserEntity, @Query() dto: FindFeesPaidDto): Promise<ResponseObject<'data', any>> {
         if (user.type !== AuthType.STUDENT) throw new ForbiddenException("You don't have access")
         dto.studentId = user.id
         const result = await (await this.service.getStudentFeesPaid(dto)).toPromise()
-        return { data: { success: true, feesPaid: result } }
+        return { data: result }
     }
 
     @UseGuards(AuthGuard())
     @Get('paid')
-    async getFeesPaid(@GetUser() user: UserEntity,@Query() dto: FindFeesPaidDto): Promise<ResponseObject<'data', any>> {
+    async getFeesPaid(@GetUser() user: UserEntity, @Query() dto: FindFeesPaidDto): Promise<ResponseObject<'data', any>> {
         if (user.type !== AuthType.ADMIN) throw new ForbiddenException("You don't have access")
         const result = await (await this.service.getStudentFeesPaid(dto)).toPromise()
-        return { data: { success: true, feesPaid: result } }
+        return { data: result }
     }
 }
