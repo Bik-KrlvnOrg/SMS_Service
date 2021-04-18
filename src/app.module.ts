@@ -13,6 +13,7 @@ import { StaffModule } from './module/staff/staff.module';
 import { NotificationModule } from './module/notification/notification.module';
 import { ConfigModule } from '@nestjs/config';
 import { config } from './libs/config/config';
+import { ForumModule } from './module/forum/forum.module';
 
 
 @Module({
@@ -32,7 +33,8 @@ import { config } from './libs/config/config';
     FeesModule,
     StudentModule,
     AttendanceModule,
-    NotificationModule
+    NotificationModule,
+    ForumModule
   ],
   controllers: [AppController],
   providers: [AppService],
