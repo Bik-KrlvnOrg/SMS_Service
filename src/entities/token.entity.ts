@@ -1,7 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('es_token', { schema: 'school' })
-export class EsToken {
+@Entity('token')
+export class TokenEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
