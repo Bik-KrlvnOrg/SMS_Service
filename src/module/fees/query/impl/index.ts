@@ -1,1 +1,0 @@
-export * from './get-fees-paid.query'
