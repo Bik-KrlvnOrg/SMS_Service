@@ -6,6 +6,8 @@ import { config, TypeOrmConfigService } from './libs';
 import { ConfigModule } from '@nestjs/config';
 import { StudentModule } from './module/student/student.module';
 import { getConnectionOptions } from 'typeorm';
+import { UserModule } from './module/user/user.module';
+import { SecurityModule } from './module/security/security.module';
 
 
 @Module({
@@ -18,6 +20,8 @@ import { getConnectionOptions } from 'typeorm';
       useClass: TypeOrmConfigService
     }),
     StudentModule,
+    UserModule,
+    SecurityModule,
 
   ],
   controllers: [AppController],

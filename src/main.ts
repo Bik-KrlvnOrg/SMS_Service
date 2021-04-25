@@ -5,6 +5,10 @@ import { WinstonModule } from 'nest-winston';
 import * as winston from 'winston'
 import 'winston-daily-rotate-file'
 import { ConfigService } from '@nestjs/config';
+import {
+  initializeTransactionalContext,
+  patchTypeORMRepositoryWithBaseRepository,
+} from 'typeorm-transactional-cls-hooked';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -24,6 +28,10 @@ async function bootstrap() {
       ]
     }))
   }
+
+  initializeTransactionalContext() // Initialize cls-hooked
+  patchTypeORMRepositoryWithBaseRepository() // patch Repository with BaseRepository.
+
   const port = configService.get<number>('port')
   await app.listen(port);
 }
