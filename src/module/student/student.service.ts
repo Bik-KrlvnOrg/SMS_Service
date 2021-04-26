@@ -19,15 +19,15 @@ export class StudentService {
     return this.studentRepository.find();
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return this.studentRepository.findOne(id);
   }
 
-  update(id: number, updateStudentDto: UpdateStudentDto) {
+  update(id: string, updateStudentDto: UpdateStudentDto) {
     return `This action updates a #${id} student`;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} student`;
   }
 }

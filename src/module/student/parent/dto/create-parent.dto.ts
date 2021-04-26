@@ -7,5 +7,5 @@ export class CreateParentDto {
   email: string;
   type: ParentType;
   gender: Gender;
-  student_id: number;
+  student_id: string;
 }

@@ -29,11 +29,11 @@ export class ParentService {
     return this.parentRepository.find();
   }
 
-  async findOne(id: number) {
+  async findOne(id: string) {
     return this.parentRepository.findOne({ id });
   }
 
-  async update(id: number, updateParentDto: UpdateParentDto): Promise<ParentEntity> {
+  async update(id: string, updateParentDto: UpdateParentDto): Promise<ParentEntity> {
     const parent = await this.findOne(id);
     console.log(parent);
     if (!parent) return null;
@@ -41,7 +41,7 @@ export class ParentService {
     return this.parentRepository.save(parent);
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} parent`;
   }
 }
