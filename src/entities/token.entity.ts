@@ -1,19 +1,16 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { AbstractEntity } from './abstract-entity';
+import { UserEntity } from './user.entity';
 
 @Entity('token')
-export class TokenEntity {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+export class TokenEntity extends AbstractEntity {
+  @ManyToOne(() => UserEntity)
+  @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
+  user: UserEntity;
+
+  @Column({ default: false })
+  is_revoked: boolean;
 
   @Column()
-  clientId: number;
-
-  @Column()
-  clientName: string;
-
-  @Column({ unique: true })
-  value: string;
-
-  @Column('datetime')
-  expiresAt: Date;
+  expires: Date;
 }
