@@ -4,7 +4,6 @@ import { UpdateParentDto } from './dto/update-parent.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ParentRepository } from './parent.repository';
 import { ParentEntity } from '../../../entities/parent.entity';
-import { StudentEntity } from '../../../entities/student.entity';
 import { StudentRepository } from '../student.repository';
 
 @Injectable()

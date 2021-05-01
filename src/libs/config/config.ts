@@ -1,6 +1,6 @@
 export interface JWTConfig {
   secret: string,
-  expiresIn: number
+  expiresIn: string|number
   issuer: string
   audience: string
   refresh: string
@@ -11,7 +11,7 @@ export const config = () => ({
   port: parseInt(process.env.PORT, 10),
   jwt: {
     secret: process.env.JWT_SECRET,
-    expireIn: process.env.JWT_EXPIRE,
+    expiresIn: process.env.JWT_EXPIRE,
     refresh: process.env.JWT_EXPIRE_RERESH,
     issuer: process.env.JWT_ISSUER,
     audience: process.env.JWT_AUDIENCE,

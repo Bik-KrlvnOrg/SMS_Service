@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { UserDetailImplService } from './user-detail-impl.service';
 import { TokenEntity } from '../../../entities/token.entity';
 import { Transactional } from 'typeorm-transactional-cls-hooked';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -11,6 +10,14 @@ import { TokenException } from '../../../libs/exception/token-exception';
 import { ErrorCode } from '../../../libs/common/error-code';
 import { TokenExpiredError } from 'jsonwebtoken';
 import { UserEntity } from '../../../entities/user.entity';
+
+export interface AccessTokenPayload{
+  iat:number,
+  exp:number,
+  aud:string,
+  iss:string,
+  sub:string
+}
 
 export interface RefreshTokenPayload {
   jti: string;
@@ -27,7 +34,7 @@ export class TokenService {
   }
 
   public async generateAccessToken(token: TokenEntity): Promise<string> {
-    const jwt = this.configService.get<JWTConfig>('jwt');
+    const { refresh,...jwt } = this.configService.get<JWTConfig>('jwt');
     const opts: JwtSignOptions = {
       ...jwt,
       subject: token.user.id,
@@ -37,12 +44,13 @@ export class TokenService {
   }
 
   @Transactional()
-  async createRefreshToken(token: TokenEntity): Promise<string> {
-    const jwt = this.configService.get<JWTConfig>('jwt');
+  async createRefreshToken(token: TokenEntity, ttl: number = 60 * 60 * 1000): Promise<string> {
+    const {refresh, ...jwt } = this.configService.get<JWTConfig>('jwt');
     const expiration = new Date();
-    expiration.setTime(expiration.getTime() + jwt.expiresIn);
+    expiration.setTime(expiration.getTime() + ttl);
     token.expires = expiration;
-    const entity = await this.tokenRepository.save(token);
+    const tokenEntity = this.tokenRepository.create(token);
+    const entity = await this.tokenRepository.save(tokenEntity);
     const opts: JwtSignOptions = {
       ...jwt,
       subject: token.user.id,

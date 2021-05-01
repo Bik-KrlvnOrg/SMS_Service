@@ -1,5 +1,5 @@
 import { PasswordEncoder } from '../interface/password-encoder';
-import { hash, compare } from 'bcryptjs';
+import { compare, hash } from 'bcryptjs';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()

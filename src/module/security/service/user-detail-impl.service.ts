@@ -19,5 +19,10 @@ export class UserDetailImplService implements UserDetailService {
     return user;
   }
 
+  async loadUserById(userId: string): Promise<UserDetails> {
+    const user = await this.userRepository.findOne({ id: userId });
+    if (!user) throw new UserNotFoundException('user not found');
+    return user;
+  }
 
 }
