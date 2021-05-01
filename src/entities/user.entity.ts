@@ -23,7 +23,7 @@ export class UserEntity extends AbstractEntity implements UserDetails {
   @OneToOne(() => UserStatusEntity)
   @JoinColumn({ name: 'user_status_id', referencedColumnName: 'id' })
   status: UserStatusEntity;
-  @ManyToMany(() => RoleEntity)
+  @ManyToMany(() => RoleEntity, { eager: true })
   @JoinTable({
     name: 'users_roles',
     joinColumn: { name: 'user_id', referencedColumnName: 'id' },
@@ -35,8 +35,8 @@ export class UserEntity extends AbstractEntity implements UserDetails {
   @Column({ type: 'boolean', default: false })
   enabled: boolean;
 
-  getPassword(): string {
-    return this.password;
+  getUserId(): string {
+    return this.id;
   }
 
   getUsername(): string {
@@ -57,5 +57,9 @@ export class UserEntity extends AbstractEntity implements UserDetails {
 
   isEnabled(): boolean {
     return this.enabled;
+  }
+
+  getRoles(): string[] {
+    return this.role.map((data: RoleEntity) => data.name);
   }
 }

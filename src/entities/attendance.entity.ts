@@ -1,5 +1,5 @@
 import { AbstractEntity } from './abstract-entity';
-import { Column, Entity, JoinTable, ManyToMany, ManyToOne } from 'typeorm';
+import { Column, Entity, JoinTable, ManyToMany } from 'typeorm';
 import { SemesterEntity } from './semester.entity';
 import { StudentEntity } from './student.entity';
 import { TutorEntity } from './tutor.entity';
