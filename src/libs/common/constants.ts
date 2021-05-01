@@ -86,3 +86,7 @@ export enum ParentType {
   MOTHER = 'mother',
   GUARDIAN = 'guardian'
 }
+
+export const RESOURCE_DEFINITION = {
+  ROLES_KEY: 'roles',
+}

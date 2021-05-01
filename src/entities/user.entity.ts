@@ -1,5 +1,5 @@
 import { AbstractEntity } from './abstract-entity';
-import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, OneToOne } from 'typeorm';
 import { UserStatusEntity } from './user-status.entity';
 import { RoleEntity } from './role.entity';
 import { UserDetails } from '../module/user/interface/user-details';
@@ -23,9 +23,13 @@ export class UserEntity extends AbstractEntity implements UserDetails {
   @OneToOne(() => UserStatusEntity)
   @JoinColumn({ name: 'user_status_id', referencedColumnName: 'id' })
   status: UserStatusEntity;
-  @OneToOne(() => RoleEntity)
-  @JoinColumn({ name: 'role_id', referencedColumnName: 'id' })
-  role: RoleEntity;
+  @ManyToMany(() => RoleEntity)
+  @JoinTable({
+    name: 'users_roles',
+    joinColumn: { name: 'user_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'role_id', referencedColumnName: 'id' },
+  })
+  role: RoleEntity[];
   @Column({ type: 'boolean', default: false })
   locked: boolean;
   @Column({ type: 'boolean', default: false })

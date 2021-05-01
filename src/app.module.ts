@@ -7,6 +7,7 @@ import { ConfigModule } from '@nestjs/config';
 import { StudentModule } from './module/student/student.module';
 import { UserModule } from './module/user/user.module';
 import { SecurityModule } from './module/security/security.module';
+import { RoleModule } from './module/role/role.module';
 
 
 @Module({
@@ -21,6 +22,7 @@ import { SecurityModule } from './module/security/security.module';
     StudentModule,
     UserModule,
     SecurityModule,
+    RoleModule,
 
   ],
   controllers: [AppController],
