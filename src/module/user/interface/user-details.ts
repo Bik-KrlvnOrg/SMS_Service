@@ -1,5 +1,5 @@
 export interface UserDetails {
-  getPassword(): string
+  getUserId(): string
 
   getUsername(): string
 
@@ -10,4 +10,6 @@ export interface UserDetails {
   isCredentialsNonExpired(): boolean
 
   isEnabled(): boolean
+
+  getRoles():string[]
 }

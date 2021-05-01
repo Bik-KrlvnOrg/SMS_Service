@@ -7,18 +7,36 @@ import { JwtOptionFactoryService } from './service/jwt-option-factory.service';
 import { TokenService } from './service/token.service';
 import { ConfirmationTokenService } from './service/confirmation-token.service';
 import { ConfirmationTokenRepository } from './repository/confirmation-token.repository';
+import { JwtStrategy } from './strategy/jwt.strategy';
+import { PassportModule } from '@nestjs/passport';
+import { UserDetailImplService } from './service/user-detail-impl.service';
+import { UserRepository } from '../user/repository/user.repository';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([
       TokenRepository,
       ConfirmationTokenRepository,
+      UserRepository
     ]),
     JwtModule.registerAsync({
       useClass: JwtOptionFactoryService,
     })],
-  providers: [BcryptPasswordEncoderImpl, TokenService, ConfirmationTokenService],
-  exports: [BcryptPasswordEncoderImpl, TokenService, ConfirmationTokenService],
+  providers: [
+    BcryptPasswordEncoderImpl,
+    TokenService,
+    ConfirmationTokenService,
+    JwtStrategy,
+    PassportModule,
+    UserDetailImplService
+  ],
+  exports: [
+    BcryptPasswordEncoderImpl,
+    TokenService,
+    ConfirmationTokenService,
+    JwtStrategy,
+    PassportModule
+  ],
 })
 export class SecurityModule {
 }

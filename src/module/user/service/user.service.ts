@@ -9,6 +9,10 @@ import { BcryptPasswordEncoderImpl } from '../../security/service/bcrypt-passwor
 import { TokenService } from '../../security/service/token.service';
 import { ConfirmationTokenService } from '../../security/service/confirmation-token.service';
 import { Transactional } from 'typeorm-transactional-cls-hooked';
+import { LoginUserDto } from '../dto/login-user.dto';
+import { InvalidCredentialException } from '../../../libs/exception/invalid-credential.exception';
+import { TokenEntity } from '../../../entities/token.entity';
+import { UserEntity } from '../../../entities/user.entity';
 
 @Injectable()
 export class UserService {
@@ -41,13 +45,34 @@ export class UserService {
     return { message: 'user account confirmed' };
   }
 
-
-  findAll() {
-    return `This action returns all user`;
+  async usernameAndPassword(loginUserDto: LoginUserDto) {
+    const user = await this.userRepository.findByUsername(loginUserDto.username);
+    if (!user) throw new InvalidCredentialException();
+    const isCorrect = await this.passwordEncoder.decode(loginUserDto.password, user.password);
+    if (!isCorrect) throw new InvalidCredentialException();
+    const entity = new TokenEntity();
+    entity.user = user;
+    const refreshToken = await this.tokenService.createRefreshToken(entity);
+    const accessToken = await this.tokenService.generateAccessToken(entity);
+    return {
+      success: true,
+      refreshToken: refreshToken,
+      accessToken: accessToken,
+    };
   }
 
-  findOne(id: string) {
-    return `This action returns a #${id} user`;
+
+  async findAll() {
+    const users = await this.userRepository.find({});
+    return classToPlain(users);
+  }
+
+  async save(user: UserEntity) {
+    return this.userRepository.save(user);
+  }
+
+  async findOne(id: string) {
+    return this.userRepository.findOne(id);
   }
 
   update(id: string, updateUserDto: UpdateUserDto) {
