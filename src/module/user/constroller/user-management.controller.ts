@@ -1,5 +1,5 @@
-import { UserService } from '../service/user.service';
-import { AssignRoleDto } from '../dto/assign-role.dto';
+import { UserService } from '../service';
+import { AssignRoleDto } from '../dto';
 import { RoleService } from '../../role/role.service';
 import { Transactional } from 'typeorm-transactional-cls-hooked';
 import { Body, Controller, Post } from '@nestjs/common';

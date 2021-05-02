@@ -1,12 +1,13 @@
 import { Body, Controller, Get, Post, Query, UseFilters, UseGuards } from '@nestjs/common';
-import { UserService } from '../service/user.service';
-import { CreateUserDto } from '../dto/create-user.dto';
+import { UserService } from '../service';
+import { CreateUserDto } from '../dto';
 import { plainToClass } from 'class-transformer';
-import { CustomExceptionFilter } from '../../../libs/exception/filter/custom-exception.filter';
-import { LoginUserDto } from '../dto/login-user.dto';
+import { CustomExceptionFilter, Role } from '../../../libs';
+import { LoginUserDto } from '../dto';
 import { AuthGuard } from '@nestjs/passport';
-import { GetUser } from '../../decorator/user.decorator';
-import { UserPayload } from '../../security/strategy/jwt.strategy';
+import { GetUser, Roles } from '../../decorator';
+import { UserPayload } from '../../security/strategy';
+import { RolesGuard } from '../../security/guard';
 
 @Controller('users')
 export class UserController {
@@ -38,7 +39,8 @@ export class UserController {
   }
 
   @Get('/test')
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard('jwt'),RolesGuard)
+  @Roles(Role.ADMIN)
   justTesting(@GetUser() data: UserPayload) {
     return data
   }

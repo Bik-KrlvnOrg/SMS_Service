@@ -1,6 +1,6 @@
 import { EntityRepository, Repository } from 'typeorm';
-import { UserEntity } from '../../../entities/user.entity';
-import { CreateUserDto } from '../dto/create-user.dto';
+import { UserEntity } from '../../../entities';
+import { CreateUserDto } from '../dto';
 import { Transactional } from 'typeorm-transactional-cls-hooked';
 
 @EntityRepository(UserEntity)

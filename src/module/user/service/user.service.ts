@@ -1,18 +1,18 @@
 import { Injectable } from '@nestjs/common';
-import { CreateUserDto } from '../dto/create-user.dto';
-import { UpdateUserDto } from '../dto/update-user.dto';
+import { CreateUserDto } from '../dto';
+import { UpdateUserDto } from '../dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UserRepository } from '../repository/user.repository';
-import { UserExistException } from '../../../libs/exception/user-exist.exception';
+import { UserRepository } from '../repository';
+import { UserExistException } from '../../../libs';
 import { classToPlain } from 'class-transformer';
-import { BcryptPasswordEncoderImpl } from '../../security/service/bcrypt-password-encoder-impl';
-import { TokenService } from '../../security/service/token.service';
-import { ConfirmationTokenService } from '../../security/service/confirmation-token.service';
+import { BcryptPasswordEncoderImpl } from '../../security/service';
+import { TokenService } from '../../security/service';
+import { ConfirmationTokenService } from '../../security/service';
 import { Transactional } from 'typeorm-transactional-cls-hooked';
-import { LoginUserDto } from '../dto/login-user.dto';
-import { InvalidCredentialException } from '../../../libs/exception/invalid-credential.exception';
-import { TokenEntity } from '../../../entities/token.entity';
-import { UserEntity } from '../../../entities/user.entity';
+import { LoginUserDto } from '../dto';
+import { InvalidCredentialException } from '../../../libs';
+import { TokenEntity } from '../../../entities';
+import { UserEntity } from '../../../entities';
 
 @Injectable()
 export class UserService {

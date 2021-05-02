@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { CreateParentDto } from './dto/create-parent.dto';
-import { UpdateParentDto } from './dto/update-parent.dto';
+import { CreateParentDto } from './dto';
+import { UpdateParentDto } from './dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ParentRepository } from './parent.repository';
-import { ParentEntity } from '../../../entities/parent.entity';
+import { ParentEntity } from '../../../entities';
 import { StudentRepository } from '../student.repository';
 
 @Injectable()
