@@ -2,7 +2,7 @@ import { AbstractEntity } from './abstract-entity';
 import { Column, Entity, JoinColumn, JoinTable, ManyToMany, OneToOne } from 'typeorm';
 import { UserStatusEntity } from './user-status.entity';
 import { RoleEntity } from './role.entity';
-import { UserDetails } from '../module/user/interface/user-details';
+import { UserDetails } from '../module/user/interface';
 import { Exclude } from 'class-transformer';
 
 @Entity({ name: 'user' })

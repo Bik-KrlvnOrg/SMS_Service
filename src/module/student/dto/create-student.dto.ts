@@ -1,7 +1,7 @@
 import { PartialType } from '@nestjs/mapped-types';
-import { StudentEntity } from '../../../entities/student.entity';
+import { StudentEntity } from '../../../entities';
 import { Gender } from '../../../libs';
-import { ParentEntity } from '../../../entities/parent.entity';
+import { ParentEntity } from '../../../entities';
 
 export class CreateStudentDto extends PartialType(StudentEntity) {
   first_name: string;

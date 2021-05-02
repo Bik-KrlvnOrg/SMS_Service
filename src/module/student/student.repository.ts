@@ -1,6 +1,6 @@
 import { EntityRepository } from 'typeorm';
-import { StudentEntity } from '../../entities/student.entity';
-import { CreateStudentDto } from './dto/create-student.dto';
+import { StudentEntity } from '../../entities';
+import { CreateStudentDto } from './dto';
 import { BaseRepository, Transactional } from 'typeorm-transactional-cls-hooked';
 
 @EntityRepository(StudentEntity)

@@ -1,6 +1,6 @@
 import { EntityRepository, Repository } from 'typeorm';
-import { ParentEntity } from '../../../entities/parent.entity';
-import { CreateParentDto } from './dto/create-parent.dto';
+import { ParentEntity } from '../../../entities';
+import { CreateParentDto } from './dto';
 
 @EntityRepository(ParentEntity)
 export class ParentRepository extends Repository<ParentEntity> {

@@ -1,15 +1,14 @@
 import { Injectable } from '@nestjs/common';
-import { TokenEntity } from '../../../entities/token.entity';
+import { TokenEntity } from '../../../entities';
 import { Transactional } from 'typeorm-transactional-cls-hooked';
 import { InjectRepository } from '@nestjs/typeorm';
-import { TokenRepository } from '../repository/token.repository';
+import { TokenRepository } from '../repository';
 import { JwtService, JwtSignOptions } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
-import { JWTConfig } from '../../../libs';
-import { TokenException } from '../../../libs/exception/token-exception';
+import { JWTConfig, TokenException } from '../../../libs';
 import { ErrorCode } from '../../../libs/common/error-code';
 import { TokenExpiredError } from 'jsonwebtoken';
-import { UserEntity } from '../../../entities/user.entity';
+import { UserEntity } from '../../../entities';
 
 export interface AccessTokenPayload{
   iat:number,

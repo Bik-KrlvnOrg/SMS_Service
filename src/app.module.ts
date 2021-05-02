@@ -4,9 +4,9 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { config, TypeOrmConfigService } from './libs';
 import { ConfigModule } from '@nestjs/config';
-import { StudentModule } from './module/student/student.module';
-import { UserModule } from './module/user/user.module';
-import { SecurityModule } from './module/security/security.module';
+import { StudentModule } from './module/student';
+import { UserModule } from './module/user';
+import { SecurityModule } from './module/security';
 import { RoleModule } from './module/role/role.module';
 
 

@@ -1,8 +1,8 @@
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { Injectable } from '@nestjs/common';
-import { AccessTokenPayload } from '../service/token.service';
-import { UserDetailImplService } from '../service/user-detail-impl.service';
+import { AccessTokenPayload } from '../service';
+import { UserDetailImplService } from '../service';
 
 export interface UserPayload {
   id: string

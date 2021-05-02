@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ConfirmationTokenRepository } from '../repository/confirmation-token.repository';
+import { ConfirmationTokenRepository } from '../repository';
 import { Transactional } from 'typeorm-transactional-cls-hooked';
-import { UserEntity } from '../../../entities/user.entity';
-import { ConfirmationTokenEntity } from '../../../entities/confirmation-token.entity';
+import { UserEntity } from '../../../entities';
+import { ConfirmationTokenEntity } from '../../../entities';
 import { randomBytes } from 'crypto';
 
 @Injectable()

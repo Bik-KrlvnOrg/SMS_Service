@@ -89,4 +89,12 @@ export enum ParentType {
 
 export const RESOURCE_DEFINITION = {
   ROLES_KEY: 'roles',
+};
+
+export enum Role {
+  ADMIN = 'ADMIN',
+  USER = 'USER',
+  BILLING = 'BILLING',
+  PRIMARY = 'PRIMARY',
+  ADMINISTRATIVE = 'ADMINISTRATIVE',
 }

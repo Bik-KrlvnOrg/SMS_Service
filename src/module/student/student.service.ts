@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { CreateStudentDto } from './dto/create-student.dto';
-import { UpdateStudentDto } from './dto/update-student.dto';
+import { CreateStudentDto } from './dto';
+import { UpdateStudentDto } from './dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { StudentRepository } from './student.repository';
 

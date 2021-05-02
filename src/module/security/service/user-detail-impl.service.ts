@@ -1,9 +1,9 @@
-import { UserDetailService } from '../../user/interface/user-detail-service';
+import { UserDetailService } from '../../user/interface';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UserRepository } from '../../user/repository/user.repository';
+import { UserRepository } from '../../user/repository';
 import { Injectable } from '@nestjs/common';
-import { UserDetails } from '../../user/interface/user-details';
-import { UserNotFoundException } from '../../../libs/exception/user-not-found.exception';
+import { UserDetails } from '../../user/interface';
+import { UserNotFoundException } from '../../../libs';
 
 @Injectable()
 export class UserDetailImplService implements UserDetailService {
