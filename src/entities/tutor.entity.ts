@@ -1,4 +1,4 @@
-import { Column, Entity, OneToMany } from 'typeorm';
+import { Column, Entity, JoinTable, ManyToMany } from 'typeorm';
 import { AbstractEntity } from './abstract-entity';
 import { AddressEntity } from './address.entity';
 
@@ -12,6 +12,15 @@ export class TutorEntity extends AbstractEntity {
   email: string;
   @Column()
   contact: string;
-  @OneToMany(() => AddressEntity, address => address.tutor)
+  @ManyToMany(() => AddressEntity)
+  @JoinTable({
+    name: 'tutor_addresses',
+    joinColumn: {
+      name: 'tutor_id', referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'address_id', referencedColumnName: 'id',
+    },
+  })
   addresses: AddressEntity[];
 }
