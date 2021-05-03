@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { CreateStudentDto } from './dto';
 import { UpdateStudentDto } from './dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { StudentRepository } from './student.repository';
+import { from } from 'rxjs';
+import { StudentEntity } from '../../entities';
 
 @Injectable()
 export class StudentService {
@@ -11,8 +12,8 @@ export class StudentService {
     private readonly  studentRepository: StudentRepository) {
   }
 
-  create(createStudentDto: CreateStudentDto) {
-    return this.studentRepository.createStudent(createStudentDto);
+  create(studentEntity: StudentEntity) {
+    return from(this.studentRepository.createStudent(studentEntity));
   }
 
   findAll() {

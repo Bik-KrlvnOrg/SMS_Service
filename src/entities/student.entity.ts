@@ -24,7 +24,7 @@ export class StudentEntity extends AbstractEntity {
   @Column()
   gender: string;
 
-  @Column({ name: 'date_of_birth' })
+  @Column({ name: 'date_of_birth',nullable: true})
   dob: Date;
 
   @ManyToMany(() => AddressEntity, { cascade: true })
