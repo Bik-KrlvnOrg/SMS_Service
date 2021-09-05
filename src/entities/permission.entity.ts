@@ -1,6 +1,5 @@
-import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
-import { AbstractEntity } from './abstract-entity';
-import { RoleEntity } from './role.entity';
+import {Column, Entity} from 'typeorm';
+import {AbstractEntity} from './abstract-entity';
 
 @Entity({ name: 'permission' })
 export class PermissionEntity extends AbstractEntity {
@@ -8,8 +7,4 @@ export class PermissionEntity extends AbstractEntity {
   name: string;
   @Column({ nullable: true })
   description: string;
-
-  @ManyToOne(() => RoleEntity)
-  @JoinColumn({ name: 'role_id', referencedColumnName: 'id' })
-  role: RoleEntity;
 }

@@ -61,6 +61,7 @@ export class UserService {
     return classToPlain(users);
   }
 
+  @Transactional()
   async save(user: UserEntity) {
     return this.userRepository.save(user);
   }
