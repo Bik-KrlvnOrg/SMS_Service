@@ -4,7 +4,7 @@ import {UserService} from "../user/service";
 import {CreateUserDto} from "../user/dto";
 import {CreateRoleDto} from "../role/dto/create-role.dto";
 import {ConfirmationTokenService} from "../security/service";
-import {UserEntity} from "../../entities";
+import {PermissionEntity, UserEntity} from "../../entities";
 
 @Injectable()
 export class SeedService {
@@ -18,8 +18,14 @@ export class SeedService {
 
     async seed() {
         try {
+            const permissions: PermissionEntity[] = ['VIEW', 'CREATE', 'EDIT', 'DELETE'].map((p) => {
+                const permission = new PermissionEntity()
+                permission.name = p
+                return permission
+            })
             const createRoleDto = new CreateRoleDto();
-            createRoleDto.name = "ADMIN"
+            createRoleDto.name = "Super_Admin"
+            createRoleDto.permissions = permissions
             const roleEntity = await this.roleService.create(createRoleDto);
 
             const createUserDto = new CreateUserDto();

@@ -1,3 +1,5 @@
+import {RolePermission} from "../../security/interface";
+
 export interface UserDetails {
   getUserId(): string
 
@@ -12,4 +14,6 @@ export interface UserDetails {
   isEnabled(): boolean
 
   getRoles():string[]
+
+  getPermissions():RolePermission[]
 }

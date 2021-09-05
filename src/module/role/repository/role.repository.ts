@@ -1,7 +1,8 @@
-import { EntityRepository, Repository } from 'typeorm';
-import { RoleEntity } from '../../../entities';
+import {EntityRepository} from 'typeorm';
+import {RoleEntity} from '../../../entities';
+import {BaseRepository} from "typeorm-transactional-cls-hooked";
 
 @EntityRepository(RoleEntity)
-export class RoleRepository extends Repository<RoleEntity>{
+export class RoleRepository extends BaseRepository<RoleEntity> {
 
 }
