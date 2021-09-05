@@ -8,6 +8,7 @@ import { StudentModule } from './module/student';
 import { UserModule } from './module/user';
 import { SecurityModule } from './module/security';
 import { RoleModule } from './module/role/role.module';
+import { SeedModule } from './module/seed/seed.module';
 
 
 @Module({
@@ -23,6 +24,7 @@ import { RoleModule } from './module/role/role.module';
     UserModule,
     SecurityModule,
     RoleModule,
+    SeedModule,
 
   ],
   controllers: [AppController],

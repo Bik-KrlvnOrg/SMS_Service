@@ -14,6 +14,9 @@ export class RoleService {
 
   @Transactional()
   async create(createRoleDto: CreateRoleDto) {
+    createRoleDto.name = createRoleDto.name.toUpperCase()
+    const role = await this.roleRepository.findOne({name:createRoleDto.name});
+    if (role) return role
     const entity = this.roleRepository.create(createRoleDto);
     return this.roleRepository.save(entity);
   }

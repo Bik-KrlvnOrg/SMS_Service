@@ -7,9 +7,9 @@ import { Exclude } from 'class-transformer';
 
 @Entity({ name: 'user' })
 export class UserEntity extends AbstractEntity implements UserDetails {
-  @Column({ name: 'first_name' })
+  @Column({ name: 'first_name' , nullable: true})
   firstName: string;
-  @Column({ name: 'last_name' })
+  @Column({ name: 'last_name' , nullable: true})
   lastName: string;
   @Column({ name: 'middle_name', nullable: true })
   middleName: string;
