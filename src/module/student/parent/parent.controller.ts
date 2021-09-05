@@ -1,7 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { ParentService } from './parent.service';
-import { CreateParentDto } from './dto';
-import { UpdateParentDto } from './dto';
+import { CreateParentDto, UpdateParentDto } from './dto';
 
 @Controller('students/parent')
 export class ParentController {

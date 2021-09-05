@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreateParentDto } from './dto';
-import { UpdateParentDto } from './dto';
+import { CreateParentDto, UpdateParentDto } from './dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ParentRepository } from './parent.repository';
 import { ParentEntity } from '../../../entities';

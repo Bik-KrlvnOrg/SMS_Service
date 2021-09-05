@@ -1,3 +1,6 @@
+build:
+	docker build -t sms:v1 .
+
 start-prod:
 	docker-compose up -d
 

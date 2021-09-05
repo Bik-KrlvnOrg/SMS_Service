@@ -1,9 +1,8 @@
 import { Body, Controller, Get, Post, Query, UseFilters, UseGuards } from '@nestjs/common';
 import { UserService } from '../service';
-import { CreateUserDto } from '../dto';
+import { CreateUserDto, LoginUserDto } from '../dto';
 import { plainToClass } from 'class-transformer';
 import { CustomExceptionFilter, Role } from '../../../libs';
-import { LoginUserDto } from '../dto';
 import { AuthGuard } from '@nestjs/passport';
 import { GetUser, Roles } from '../../decorator';
 import { UserPayload } from '../../security/strategy';

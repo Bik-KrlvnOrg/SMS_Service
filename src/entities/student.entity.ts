@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, OneToMany, OneToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, OneToMany, OneToOne } from 'typeorm';
 import { AbstractEntity } from './abstract-entity';
 import { AddressEntity } from './address.entity';
 import { ParentEntity } from './parent.entity';
@@ -6,31 +6,41 @@ import { UserEntity } from './user.entity';
 
 @Entity({ name: 'student' })
 export class StudentEntity extends AbstractEntity {
-  @Column()
+  @Column({ name: 'first_name' })
   first_name: string;
 
-  @Column()
+  @Column({ name: 'last_name' })
   last_name: string;
 
-  @Column({ default: '' })
+  @Column({ name: 'middle_name', default: '' })
   middle_name: string;
 
-  @Column()
+  @Column({ nullable: true })
   contact: string;
 
-  @Column()
+  @Column({ nullable: true })
   email: string;
 
   @Column()
   gender: string;
 
-  @Column()
-  date_of_birth: string;
+  @Column({ name: 'date_of_birth',nullable: true})
+  dob: Date;
 
-  @OneToMany(() => AddressEntity, address => address.student)
+  @ManyToMany(() => AddressEntity, { cascade: true })
+  @JoinTable({
+    name: 'student_addresses',
+    joinColumn: {
+      name: 'student_id', referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'address_id', referencedColumnName: 'id',
+    },
+  })
   addresses: AddressEntity[];
 
-  @OneToMany(() => ParentEntity, parent => parent.student, { eager: true })
+  @OneToMany(() => ParentEntity,
+    parent => parent.student, { eager: true, cascade: true })
   parents: ParentEntity[];
 
   @OneToOne(() => UserEntity)
