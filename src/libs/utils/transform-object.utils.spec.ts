@@ -1,4 +1,4 @@
-import { transformObject } from ".";
+import { transformObject } from '.';
 
 describe('Transform object', () => {
     it('should throw an error if object is null', () => {

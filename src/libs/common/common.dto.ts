@@ -1,5 +1,5 @@
-import { IsEnum, IsNumberString, IsOptional, IsString } from "class-validator"
-import { RecordSort } from "."
+import { IsEnum, IsNumberString, IsOptional, IsString } from 'class-validator';
+import { RecordSort } from '.';
 
 export class FindOptionsDto {
     @IsOptional()

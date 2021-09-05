@@ -1,1 +1,1 @@
-export * from './admission.dto'
+export * from './update-student.dto';
