@@ -1,16 +1,11 @@
-import { AbstractEntity } from './abstract-entity';
-import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
-import { CourseEntity } from './course.entity';
+import {AbstractEntity} from './abstract-entity';
+import {Column, Entity} from 'typeorm';
 
-@Entity({ name: 'subject' })
+@Entity({name: 'subject'})
 export class SubjectEntity extends AbstractEntity {
-  @Column()
-  name: string;
+    @Column({unique: true})
+    name: string;
 
-  @OneToOne(() => CourseEntity)
-  @JoinColumn({ name: 'course_id', referencedColumnName: 'id' })
-  course: CourseEntity;
-
-  @Column()
-  max_capacity: number;
+    @Column()
+    max_capacity: number;
 }
