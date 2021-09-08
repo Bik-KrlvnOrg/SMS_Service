@@ -23,12 +23,20 @@
 
 
 ## 5.4.2 Database Schema
+
 ### User
+
 User Schema ![schema](./img/user-schema.png)
 
 ### Role
+
 Role Schema ![schema](./img/role-schema.png)
 
 ### Student
+
 Student Schema ![schema](./img/student-schema.png)
+
+### Course-Subjects
+
+Course-Subjects ![schema](./img/course_subject.png)
 

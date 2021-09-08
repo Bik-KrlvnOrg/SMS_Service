@@ -12,6 +12,8 @@ import {SeedModule} from './module/seed/seed.module';
 import {NotificationModule} from './module/notification/notification.module';
 import {UrlGeneratorModule} from "nestjs-url-generator";
 import {UrlGeneratorConfig} from "./libs/config/url-generator-service.config";
+import {CourseModule} from './module/course/course.module';
+import {SubjectModule} from './module/subject/subject.module';
 
 
 @Module({
@@ -32,6 +34,8 @@ import {UrlGeneratorConfig} from "./libs/config/url-generator-service.config";
         RoleModule,
         SeedModule,
         NotificationModule,
+        CourseModule,
+        SubjectModule,
 
     ],
     controllers: [AppController],
