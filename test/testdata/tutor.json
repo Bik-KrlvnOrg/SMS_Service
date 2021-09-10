@@ -1,0 +1,24 @@
+{
+  "first_name": "Christopher",
+  "middle_name": "R",
+  "last_name": "Tanner",
+  "contact": "585-613-0001",
+  "email": "o1vxudmg12n@temporary-mail.net",
+  "gender": "male",
+  "dob": "2/11/1995",
+  "addresses": [
+    {
+      "city": "WEST BRANCH",
+      "street": "1060 James Street",
+      "country": "USA",
+      "stateOrProvince": "Iowa",
+      "zipOrPostalCode": "",
+      "id": "8b449d76-f0e7-4e1a-9d62-ff1c0e3c5c75",
+      "createdAt": "2021-09-09T22:58:53.807Z",
+      "updatedAt": "2021-09-09T22:58:53.807Z"
+    }
+  ],
+  "id": "dc702447-1be3-4073-8956-ecc13adb66a9",
+  "createdAt": "2021-09-09T22:58:53.807Z",
+  "updatedAt": "2021-09-09T22:58:53.807Z"
+}

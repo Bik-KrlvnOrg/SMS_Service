@@ -1,4 +1,4 @@
-import {Body, Controller, Delete, Get, HttpCode, Param, Post, UseGuards} from '@nestjs/common';
+import {Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, UseGuards} from '@nestjs/common';
 import {TutorService} from "./tutor.service";
 import {AssignSubjectDto} from "./dto/assign-subject.dto";
 import {RemoveAddressDto} from "./dto/remove-address.dto";
@@ -37,7 +37,7 @@ export class TutorController {
     }
 
     @Post(':id/assign-user')
-    @HttpCode(200)
+    @HttpCode(HttpStatus.NO_CONTENT)
     @Roles(Role.SUPER_ADMIN, Role.ADMIN)
     async assignUser(@Param('id') tutorId: string, @Body() assignUserDto: AssignUserDto) {
         assignUserDto.tutorId = tutorId;
@@ -45,7 +45,7 @@ export class TutorController {
     }
 
     @Post(':id/assign-subject')
-    @HttpCode(200)
+    @HttpCode(HttpStatus.NO_CONTENT)
     @Roles(Role.SUPER_ADMIN, Role.ADMIN)
     @RolePermission(Permission.EDIT)
     async assignSubject(@Param('id') tutorId: string, @Body() assignSubjectDto: AssignSubjectDto) {

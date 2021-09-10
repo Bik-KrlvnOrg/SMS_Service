@@ -16,11 +16,13 @@ import {CourseModule} from './module/course/course.module';
 import {SubjectModule} from './module/subject/subject.module';
 import {TutorModule} from './module/tutor/tutor.module';
 
+const ENV = process.env.NODE_ENV;
 
 @Module({
     imports: [
         ConfigModule.forRoot({
             isGlobal: true,
+            envFilePath: !ENV ? '.env' : `.env.${ENV}`,
             load: [config],
         }),
         TypeOrmModule.forRootAsync({
