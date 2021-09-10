@@ -1,6 +1,5 @@
 import {Inject, Injectable} from '@nestjs/common';
 import {CreateUserDto, LoginUserDto, UpdateUserDto} from '../dto';
-import {InjectRepository} from '@nestjs/typeorm';
 import {UserRepository} from '../repository';
 import {InvalidCredentialException, UserExistException} from '../../../libs';
 import {classToPlain} from 'class-transformer';
@@ -12,7 +11,6 @@ import {MAIL_PROVIDER, MailService} from "../../notification/interface/mail.serv
 @Injectable()
 export class UserService {
     constructor(
-        @InjectRepository(UserRepository)
         private readonly userRepository: UserRepository,
         private readonly passwordEncoder: BcryptPasswordEncoderImpl,
         private readonly tokenService: TokenService,
