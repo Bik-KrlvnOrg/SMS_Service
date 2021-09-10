@@ -61,11 +61,11 @@ describe('TutorController', () => {
     });
 
 
-    it('Index - should return tutor array', async () => {
-        return request(app.getHttpServer())
-            .get('/tutors')
-            .expect(HttpStatus.OK)
-    });
+    // it('Index - should return tutor array', async () => {
+    //     return request(app.getHttpServer())
+    //         .get('/tutors')
+    //         .expect(HttpStatus.OK)
+    // });
 
     it('GetOne - should return tutor object', async () => {
         return request(app.getHttpServer())
