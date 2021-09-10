@@ -1,0 +1,12 @@
+{
+  "firstName": "James",
+  "lastName": "Owusu",
+  "username": "james",
+  "email": "james@me.com",
+  "middleName": null,
+  "id": "6f49520b-22e4-4381-8da8-b3d733bdf007",
+  "createdAt": "2021-09-04T21:44:13.628Z",
+  "updatedAt": "2021-09-04T21:44:13.628Z",
+  "locked": false,
+  "enabled": false
+}
