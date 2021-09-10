@@ -1,5 +1,5 @@
-import { IsEnum, IsNumberString, IsOptional, IsString } from 'class-validator';
-import { RecordSort } from '.';
+import {IsEnum, IsNotEmpty, IsNumberString, IsOptional, IsString} from 'class-validator';
+import {RecordSort} from '.';
 
 export class FindOptionsDto {
     @IsOptional()
@@ -41,3 +41,18 @@ export class FindOptionsDto {
 }
 
 
+export class CreateAddressDto {
+    @IsNotEmpty()
+    city: string
+
+    @IsNotEmpty()
+    country: string
+
+    @IsNotEmpty()
+    stateOrProvince: string
+
+    @IsNotEmpty()
+    street: string
+
+    zipOrPostalCode: string
+}
