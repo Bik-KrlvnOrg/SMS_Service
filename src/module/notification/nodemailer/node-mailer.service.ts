@@ -11,7 +11,6 @@ export class NodeMailerService implements MailService {
 
     constructor(private readonly configService: ConfigService) {
         const mailerConfig = configService.get<MailerConfig>('mailer');
-        console.log('mail', mailerConfig)
         this.nodemailerTransport = createTransport(mailerConfig);
     }
 

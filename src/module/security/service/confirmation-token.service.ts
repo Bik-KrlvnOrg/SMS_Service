@@ -1,5 +1,4 @@
 import {Injectable} from '@nestjs/common';
-import {InjectRepository} from '@nestjs/typeorm';
 import {ConfirmationTokenRepository} from '../repository';
 import {Transactional} from 'typeorm-transactional-cls-hooked';
 import {ConfirmationTokenEntity, UserEntity} from '../../../entities';
@@ -9,7 +8,6 @@ import {UrlGeneratorService} from "nestjs-url-generator";
 @Injectable()
 export class ConfirmationTokenService {
     constructor(
-        @InjectRepository(ConfirmationTokenRepository)
         private readonly confirmationRepository: ConfirmationTokenRepository,
         private readonly urlGeneratorService: UrlGeneratorService
     ) {
