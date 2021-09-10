@@ -40,3 +40,6 @@ Student Schema ![schema](./img/student-schema.png)
 
 Course-Subjects ![schema](./img/course_subject.png)
 
+### Tutor
+
+Tutor ![schema](./img/tutor.png)

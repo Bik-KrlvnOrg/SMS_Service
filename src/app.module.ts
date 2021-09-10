@@ -14,6 +14,7 @@ import {UrlGeneratorModule} from "nestjs-url-generator";
 import {UrlGeneratorConfig} from "./libs/config/url-generator-service.config";
 import {CourseModule} from './module/course/course.module';
 import {SubjectModule} from './module/subject/subject.module';
+import {TutorModule} from './module/tutor/tutor.module';
 
 
 @Module({
@@ -36,6 +37,7 @@ import {SubjectModule} from './module/subject/subject.module';
         NotificationModule,
         CourseModule,
         SubjectModule,
+        TutorModule,
 
     ],
     controllers: [AppController],
