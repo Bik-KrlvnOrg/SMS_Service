@@ -1,0 +1,22 @@
+[
+  {
+    "city": "WEST BRANCH",
+    "street": "1060 James Street",
+    "country": "USA",
+    "stateOrProvince": "Iowa",
+    "zipOrPostalCode": "",
+    "id": "8b449d76-f0e7-4e1a-9d62-ff1c0e3c5c75",
+    "createdAt": "2021-09-09T22:58:53.807Z",
+    "updatedAt": "2021-09-09T22:58:53.807Z"
+  },
+  {
+    "city": "San Diego",
+    "street": "3557 Carson Street",
+    "country": "USA",
+    "stateOrProvince": "California",
+    "zipOrPostalCode": "92101",
+    "id": "53f3b858-a11f-40a2-8144-0fc4b43125f7",
+    "createdAt": "2021-09-09T23:00:13.807Z",
+    "updatedAt": "2021-09-09T23:00:13.807Z"
+  }
+]

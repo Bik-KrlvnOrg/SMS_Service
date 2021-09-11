@@ -1,6 +1,6 @@
-import {Body, Controller, Get, Post, Query, UseFilters, UseGuards} from '@nestjs/common';
+import {Body, Controller, Get, HttpCode, HttpStatus, Post, Query, UseFilters, UseGuards} from '@nestjs/common';
 import {UserService} from '../service';
-import {CreateUserDto, LoginUserDto} from '../dto';
+import {AssignRoleDto, CreateUserDto, LoginUserDto} from '../dto';
 import {plainToClass} from 'class-transformer';
 import {CustomExceptionFilter, Permission, Role} from '../../../libs';
 import {AuthGuard} from '@nestjs/passport';
@@ -9,21 +9,28 @@ import {UserPayload} from '../../security/strategy';
 import {RolesGuard} from '../../security/guard';
 import {RolePermission} from "../../decorator/permission.decorator";
 import {PermissionsGuard} from "../../security/guard/permissions.guard";
+import {RoleService} from "../../role/role.service";
 
 @Controller('users')
+@UseGuards(AuthGuard('jwt'), RolesGuard, PermissionsGuard)
+@UseFilters(CustomExceptionFilter)
 export class UserController {
-    constructor(private readonly userService: UserService) {
+    constructor(
+        private readonly userService: UserService,
+        private readonly roleService: RoleService
+    ) {
     }
 
+
     @Post('register')
-    @UseFilters(CustomExceptionFilter)
+    @RolePermission(Permission.CREATE)
     create(@Body() createUserDto: CreateUserDto) {
         const dto = plainToClass(CreateUserDto, createUserDto);
         return this.userService.create(dto);
     }
 
     @Post('login')
-    @UseFilters(CustomExceptionFilter)
+    @HttpCode(HttpStatus.OK)
     login(@Body() loginUserDto: LoginUserDto) {
         return this.userService.usernameAndPassword(loginUserDto);
     }
@@ -39,8 +46,17 @@ export class UserController {
         return this.userService.findAll();
     }
 
+    @Post('/assign-role')
+    @RolePermission(Permission.CREATE)
+    @HttpCode(HttpStatus.NO_CONTENT)
+    async assignRole(@Body() assignRoleDto: AssignRoleDto) {
+        const dto = plainToClass(AssignRoleDto, assignRoleDto);
+        const user = await this.userService.findOne(dto.userId);
+        user.role = await this.roleService.findIds(dto.roles);
+        await this.userService.save(user)
+    }
+
     @Get('/test')
-    @UseGuards(AuthGuard('jwt'), RolesGuard, PermissionsGuard)
     @Roles(Role.SUPER_ADMIN)
     @RolePermission(Permission.VIEW)
     justTesting(@GetUser() data: UserPayload) {

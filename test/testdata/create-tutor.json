@@ -1,0 +1,17 @@
+{
+  "first_name": "Christopher",
+  "middle_name": "R",
+  "last_name": "Tanner",
+  "contact": "585-613-0001",
+  "email": "o1vxudmg12n@temporary-mail.net",
+  "gender": "male",
+  "dob": "2/11/1995",
+  "addresses": [
+    {
+      "city": "WEST BRANCH",
+      "stateOrProvince": "Iowa",
+      "country": "USA",
+      "street": "1060 James Street"
+    }
+  ]
+}

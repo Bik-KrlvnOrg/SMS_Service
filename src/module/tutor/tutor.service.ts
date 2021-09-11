@@ -1,5 +1,4 @@
 import {Injectable} from '@nestjs/common';
-import {InjectRepository} from "@nestjs/typeorm";
 import {TutorRepository} from "./repository/tutor.repository";
 import {CreateTutorDto} from "./dto/create-tutor.dto";
 import {AddressEntity} from "../../entities";
@@ -13,13 +12,13 @@ import {AssignUserDto} from "./dto/assign-user.dto";
 @Injectable()
 export class TutorService {
     constructor(
-        @InjectRepository(TutorRepository)
         private readonly tutorRepository: TutorRepository
     ) {
     }
 
     @Transactional()
     async create(createTutorDto: CreateTutorDto) {
+        if (!createTutorDto) throw new Error("arguments can't be null")
         const tutorEntity = this.tutorRepository.create(createTutorDto);
         tutorEntity.addresses = createTutorDto.addresses.map(address => {
             const addressEntity = new AddressEntity();

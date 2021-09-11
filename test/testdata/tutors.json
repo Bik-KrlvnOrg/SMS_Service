@@ -1,0 +1,59 @@
+[
+  {
+    "first_name": "Christopher",
+    "middle_name": "R",
+    "last_name": "Tanner",
+    "contact": "585-613-0001",
+    "email": "o1vxudmg12n@temporary-mail.net",
+    "gender": "male",
+    "dob": "2/11/1995",
+    "addresses": [
+      {
+        "city": "WEST BRANCH",
+        "street": "1060 James Street",
+        "country": "USA",
+        "stateOrProvince": "Iowa",
+        "zipOrPostalCode": "",
+        "id": "8b449d76-f0e7-4e1a-9d62-ff1c0e3c5c75",
+        "createdAt": "2021-09-09T22:58:53.807Z",
+        "updatedAt": "2021-09-09T22:58:53.807Z"
+      }
+    ],
+    "subjects": [
+      {
+        "id": "06e7d31f-4c65-41c2-9948-5b02d9210d75",
+        "createdAt": "2021-09-08T17:57:25.120Z",
+        "updatedAt": "2021-09-08T17:57:25.120Z",
+        "name": "English",
+        "max_capacity": 200
+      }
+    ],
+    "id": "dc702447-1be3-4073-8956-ecc13adb66a9",
+    "createdAt": "2021-09-09T22:58:53.807Z",
+    "updatedAt": "2021-09-09T22:58:53.807Z"
+  },
+  {
+    "first_name": "Dana",
+    "middle_name": "G",
+    "last_name": "Lemke",
+    "contact": "858-859-3148",
+    "email": "vzaj8vyhu9e@temporary-mail.net",
+    "gender": "male",
+    "dob": "9/25/1998",
+    "addresses": [
+      {
+        "city": "San Diego",
+        "street": "3557 Carson Street",
+        "country": "USA",
+        "stateOrProvince": "California",
+        "zipOrPostalCode": "92101",
+        "id": "53f3b858-a11f-40a2-8144-0fc4b43125f7",
+        "createdAt": "2021-09-09T23:00:13.807Z",
+        "updatedAt": "2021-09-09T23:00:13.807Z"
+      }
+    ],
+    "id": "033647ec-e04f-4506-81d3-b6afba54ecca",
+    "createdAt": "2021-09-09T23:00:13.807Z",
+    "updatedAt": "2021-09-09T23:00:13.807Z"
+  }
+]
