@@ -12,7 +12,6 @@ import {PermissionsGuard} from "../../security/guard/permissions.guard";
 import {RoleService} from "../../role/role.service";
 
 @Controller('users')
-@UseGuards(AuthGuard('jwt'), RolesGuard, PermissionsGuard)
 @UseFilters(CustomExceptionFilter)
 export class UserController {
     constructor(
@@ -23,6 +22,7 @@ export class UserController {
 
 
     @Post('register')
+    @UseGuards(AuthGuard('jwt'), RolesGuard, PermissionsGuard)
     @RolePermission(Permission.CREATE)
     create(@Body() createUserDto: CreateUserDto) {
         const dto = plainToClass(CreateUserDto, createUserDto);
@@ -47,6 +47,7 @@ export class UserController {
     }
 
     @Post('/assign-role')
+    @UseGuards(AuthGuard('jwt'), RolesGuard, PermissionsGuard)
     @RolePermission(Permission.CREATE)
     @HttpCode(HttpStatus.NO_CONTENT)
     async assignRole(@Body() assignRoleDto: AssignRoleDto) {
@@ -57,6 +58,7 @@ export class UserController {
     }
 
     @Get('/test')
+    @UseGuards(AuthGuard('jwt'), RolesGuard, PermissionsGuard)
     @Roles(Role.SUPER_ADMIN)
     @RolePermission(Permission.VIEW)
     justTesting(@GetUser() data: UserPayload) {
