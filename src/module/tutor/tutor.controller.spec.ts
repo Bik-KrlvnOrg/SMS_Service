@@ -98,20 +98,20 @@ describe('TutorController', () => {
         return request(app.getHttpServer())
             .delete('/tutors/dc702447-1be3-4073-8956-ecc13adb66a9/remove-subject')
             .send(removeSubjectJson)
-            .expect(HttpStatus.OK)
+            .expect(HttpStatus.NO_CONTENT)
     });
 
     it('RemoveAddress - should return created tutor object', async () => {
         return request(app.getHttpServer())
             .delete('/tutors/dc702447-1be3-4073-8956-ecc13adb66a9/remove-address')
             .send(removeAddressJson)
-            .expect(HttpStatus.OK)
+            .expect(HttpStatus.NO_CONTENT)
     });
 
     it('DeleteTutor - should remove tutor', async () => {
         return request(app.getHttpServer())
             .delete('/tutors/dc702447-1be3-4073-8956-ecc13adb66a9')
-            .expect(HttpStatus.OK)
+            .expect(HttpStatus.NO_CONTENT)
     });
 
 });

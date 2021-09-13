@@ -29,6 +29,14 @@ export const config = () => ({
         logging: JSON.parse(process.env.DB_LOG),
         dropSchema: JSON.parse(process.env.DB_DROP),
     },
+    test_database: {
+        type: 'sqlite',
+        database: process.env.DATABASE_NAME,
+        entities: ['./**/*.entity.ts'],
+        synchronize: JSON.parse(process.env.DB_SYNC),
+        logging: JSON.parse(process.env.DB_LOG),
+        dropSchema: JSON.parse(process.env.DB_DROP),
+    },
     winston: {
         dailyFormat: {
             filename: 'sms-service-%DATE%.log',
