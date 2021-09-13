@@ -56,6 +56,7 @@ export class TutorController {
     @Delete(':id/remove-subject')
     @Roles(Role.SUPER_ADMIN, Role.ADMIN)
     @RolePermission(Permission.DELETE)
+    @HttpCode(HttpStatus.NO_CONTENT)
     async removeSubject(@Param('id') tutorId: string, @Body() removeSubjectDto: RemoveSubjectDto) {
         removeSubjectDto.tutorId = tutorId;
         return this.tutorService.removeSubject(removeSubjectDto);
@@ -64,6 +65,7 @@ export class TutorController {
     @Delete(':id/remove-address')
     @Roles(Role.SUPER_ADMIN, Role.ADMIN)
     @RolePermission(Permission.DELETE)
+    @HttpCode(HttpStatus.NO_CONTENT)
     async removeAddress(@Param('id') tutorId: string, @Body() removeAddressDto: RemoveAddressDto) {
         removeAddressDto.tutorId = tutorId;
         return this.tutorService.removeAddress(removeAddressDto);
@@ -72,6 +74,7 @@ export class TutorController {
     @Delete(':id')
     @Roles(Role.SUPER_ADMIN, Role.ADMIN)
     @RolePermission(Permission.DELETE)
+    @HttpCode(HttpStatus.NO_CONTENT)
     async deleteTutor(@Param('id') tutorId: string) {
         return this.tutorService.delete(tutorId);
     }

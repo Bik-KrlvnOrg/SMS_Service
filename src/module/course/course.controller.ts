@@ -27,6 +27,11 @@ export class CourseController {
         return this.courseService.get();
     }
 
+    @Get(':id')
+    async getOne(@Param('id') courseId: string) {
+        return this.courseService.getOne(courseId);
+    }
+
     @Delete("/remove-subject")
     async removeSubject(@Body() removeSubjectDto: RemoveSubjectDto) {
         return this.courseService.removeSubject(removeSubjectDto)
