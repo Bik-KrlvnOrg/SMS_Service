@@ -15,7 +15,11 @@ export class NodeMailerService implements MailService {
     }
 
     async sendMail(options: Mail.Options) {
-        return this.nodemailerTransport.sendMail(options)
+        try {
+            await this.nodemailerTransport.sendMail(options)
+        } catch (e) {
+            console.error('node-mail-service.sendMail', e)
+        }
     }
 
 }
