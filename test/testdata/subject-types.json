@@ -1,0 +1,16 @@
+[
+  {
+    "id": "cdc2f78b-807f-4e03-a656-67aa3b33055b",
+    "createdAt": "2021-09-12T14:30:48.089Z",
+    "updatedAt": "2021-09-12T14:30:48.089Z",
+    "name": "CORE",
+    "description": null
+  },
+  {
+    "id": "2837c48c-cb11-4669-b0bc-1d52e7546484",
+    "createdAt": "2021-09-12T16:17:48.089Z",
+    "updatedAt": "2021-09-12T16:17:48.089Z",
+    "name": "ELECTIVE",
+    "description": null
+  }
+]

@@ -24,3 +24,4 @@ export * from './address-type.entity';
 export * from './forum-status.entity';
 export * from './forum_thread.entity';
 export * from './confirmation-token.entity';
+export * from './subject-type.entity'

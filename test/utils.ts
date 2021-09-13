@@ -1,11 +1,20 @@
 import {BaseRepository} from "typeorm-transactional-cls-hooked";
-import {ConfirmationTokenEntity, RoleEntity, TokenEntity, TutorEntity, UserEntity} from "../src/entities";
+import {
+    ConfirmationTokenEntity,
+    RoleEntity,
+    SubjectTypeEntity,
+    TokenEntity,
+    TutorEntity,
+    UserEntity
+} from "../src/entities";
 import tutorsJson from "./testdata/tutors.json";
 import usersJson from './testdata/users.json'
 import {plainToClass} from "class-transformer";
 import userJson from './testdata/user.json'
 import rolesJson from './testdata/roles.json'
 import confirmationTokensJson from './testdata/confirmation-tokens.json'
+import subjectTypesJson from './testdata/subject-types.json'
+
 
 export type MockType<T> = {
     [P in keyof T]?: jest.Mock<{}>;
@@ -57,6 +66,15 @@ export const roleRepositoryMock: () => MockType<BaseRepository<RoleEntity>> = je
     findByIds: jest.fn(ids => rolesJson.filter(role => ids.map(d => d).includes(role.id))),
     find: jest.fn(() => rolesJson),
     remove: jest.fn(entity => rolesJson.filter(t => t.id == entity.id)),
+}));
+
+export const subjectTypeRepositoryMock: () => MockType<BaseRepository<SubjectTypeEntity>> = jest.fn(() => ({
+    findOne: jest.fn((opt) =>
+        subjectTypesJson.find(subType => subType.id == opt.id || subType.name == opt.name)),
+    create: jest.fn(dto => plainToClass(SubjectTypeEntity, dto)),
+    save: jest.fn(entity => entity),
+    find: jest.fn(() => subjectTypesJson),
+    remove: jest.fn(entity => subjectTypesJson.filter(t => t.id == entity.id)),
 }));
 
 export const mockedJwtService = {
