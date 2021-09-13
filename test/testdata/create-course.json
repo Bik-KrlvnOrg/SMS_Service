@@ -1,0 +1,11 @@
+{
+  "name": "General_Science",
+  "code": "GEN-SCI-001",
+  "capacity": 500,
+  "subjects": [
+    {
+      "name": "English",
+      "max_capacity": 200
+    }
+  ]
+}
