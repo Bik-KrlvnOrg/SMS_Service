@@ -145,14 +145,45 @@ describe('SMS-SERVICE - e2e', function () {
 
     describe('SUBJECTS', () => {
         let createSubject = {}
+        let createSubjectType = {}
+
+        it('/subjects-type - POST', async () => {
+            return request(app.getHttpServer())
+                .post('/subjects/subject-types')
+                .set('Authorization', accessToken)
+                .send({
+                    "name": "core",
+                    "description": ""
+                })
+                .expect(201)
+                .then(resp => {
+                    console.log('subjects-types - create', resp.body)
+                    createSubjectType = resp.body
+                })
+        });
+
+        it('/subjects-type - GET', async () => {
+            return request(app.getHttpServer())
+                .get('/subjects/subject-types/all')
+                .set('Authorization', accessToken)
+                .expect(200)
+                .then(resp => {
+                    console.log('subjects-types', resp.body)
+                })
+        });
+
         it('/subjects - POST', async () => {
+            const subject = {
+                "name": "MATHEMATICS",
+                "max_capacity": 200,
+                "subjectType": null
+            }
+            subject.subjectType = createSubjectType
+
             return request(app.getHttpServer())
                 .post('/subjects')
                 .set('Authorization', accessToken)
-                .send({
-                    "name": "MATHEMATICS",
-                    "max_capacity": 200
-                })
+                .send(subject)
                 .expect(201)
                 .then(resp => {
                     console.log('subjects - create', resp.body)

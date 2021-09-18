@@ -38,7 +38,14 @@ describe('SubjectTypeService', () => {
 
     it('Create - should create new subject-type', async () => {
         const createSubjectTypeDto = plainToClass(CreateSubjectTypeDto, createSubjectTypeJson);
-        createSubjectTypeDto.name = "Elective"
+        createSubjectTypeDto.name = "Other"
+        const subjectType = await service.create(createSubjectTypeDto);
+        expect(subjectType).toBeDefined()
+    });
+
+    it('Create - name already exist return subject-type', async () => {
+        const createSubjectTypeDto = plainToClass(CreateSubjectTypeDto, createSubjectTypeJson);
+        createSubjectTypeDto.name = "CORE"
         const subjectType = await service.create(createSubjectTypeDto);
         expect(subjectType).toBeDefined()
     });

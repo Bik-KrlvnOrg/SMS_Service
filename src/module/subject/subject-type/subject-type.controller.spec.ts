@@ -44,7 +44,7 @@ describe('SubjectTypeController', () => {
 
     it('Index - should return all subject-types ', async () => {
         return request(app.getHttpServer())
-            .get('/subjects/subject-types')
+            .get('/subjects/subject-types/all')
             .expect(HttpStatus.OK)
             .then(resp => expect(resp.body).toBeDefined())
     });
