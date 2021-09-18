@@ -46,8 +46,6 @@ export const tokenRepositoryMock: () => MockType<BaseRepository<TokenEntity>> = 
     findOne: jest.fn(_ => token),
     create: jest.fn(dto => plainToClass(TokenEntity, dto)),
     save: jest.fn(entity => entity),
-    find: jest.fn(() => usersJson),
-    remove: jest.fn(entity => usersJson.filter(t => t.id == entity.id)),
 }));
 
 
@@ -55,8 +53,6 @@ export const confirmationRepositoryMock: () => MockType<BaseRepository<Confirmat
     findOne: jest.fn(({token}) => confirmationTokensJson.find(_token => _token.token == token)),
     create: jest.fn(dto => plainToClass(UserEntity, dto)),
     save: jest.fn(entity => entity),
-    find: jest.fn(() => usersJson),
-    remove: jest.fn(entity => usersJson.filter(t => t.id == entity.id)),
 }));
 
 export const roleRepositoryMock: () => MockType<BaseRepository<RoleEntity>> = jest.fn(() => ({

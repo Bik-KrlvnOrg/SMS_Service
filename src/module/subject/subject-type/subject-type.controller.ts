@@ -8,7 +8,7 @@ export class SubjectTypeController {
     constructor(private readonly subjectTypeService: SubjectTypeService) {
     }
 
-    @Get()
+    @Get('/all')
     async index() {
         return this.subjectTypeService.get()
     }
