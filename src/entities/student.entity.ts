@@ -1,18 +1,18 @@
-import { Column, Entity, JoinColumn, JoinTable, ManyToMany, OneToMany, OneToOne } from 'typeorm';
-import { AbstractEntity } from './abstract-entity';
-import { AddressEntity } from './address.entity';
-import { ParentEntity } from './parent.entity';
-import { UserEntity } from './user.entity';
+import {Column, Entity, JoinColumn, JoinTable, ManyToMany, OneToMany, OneToOne} from 'typeorm';
+import {AbstractEntity} from './abstract-entity';
+import {AddressEntity} from './address.entity';
+import {ParentEntity} from './parent.entity';
+import {UserEntity} from './user.entity';
 
-@Entity({ name: 'student' })
+@Entity({name: 'student'})
 export class StudentEntity extends AbstractEntity {
-  @Column({ name: 'first_name' })
+  @Column({name: 'first_name'})
   first_name: string;
 
-  @Column({ name: 'last_name' })
+  @Column({name: 'last_name'})
   last_name: string;
 
-  @Column({ name: 'middle_name', default: '' })
+  @Column({name: 'middle_name', default: ''})
   middle_name: string;
 
   @Column({ nullable: true })

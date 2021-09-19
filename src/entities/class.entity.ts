@@ -1,10 +1,10 @@
-import { AbstractEntity } from './abstract-entity';
-import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
-import { ClassroomEntity } from './classroom.entity';
-import { SubjectEntity } from './subject.entity';
-import { TutorEntity } from './tutor.entity';
+import {AbstractEntity} from './abstract-entity';
+import {Column, Entity, JoinColumn, ManyToOne} from 'typeorm';
+import {ClassroomEntity} from './classroom.entity';
+import {SubjectEntity} from './subject.entity';
+import {TutorEntity} from './tutor.entity';
 
-@Entity({ name: 'class' })
+@Entity({name: 'class'})
 export class ClassEntity extends AbstractEntity {
   @Column()
   period: number;

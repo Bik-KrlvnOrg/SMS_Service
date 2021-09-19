@@ -25,3 +25,4 @@ export * from './forum-status.entity';
 export * from './forum_thread.entity';
 export * from './confirmation-token.entity';
 export * from './subject-type.entity'
+export * from './enrollment.entity'

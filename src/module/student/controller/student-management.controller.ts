@@ -1,26 +1,22 @@
-import {Body, Controller, Delete, Param, Post, UseGuards} from '@nestjs/common';
+import {Body, Controller, Delete, Param, Post} from '@nestjs/common';
 import {StudentService} from '../student.service';
-import {AuthGuard} from '@nestjs/passport';
-import {RolesGuard} from '../../security/guard';
-import {Roles} from '../../decorator';
-import {Permission, Role} from '../../../libs';
-import {StudentEntity} from '../../../entities';
+import {Permission} from '../../../libs';
 import {RolePermission} from "../../decorator/permission.decorator";
-import {PermissionsGuard} from "../../security/guard/permissions.guard";
+import {CreateStudentDto} from "../dto/create-student.dto";
 
 @Controller("students/management")
-@UseGuards(AuthGuard('jwt'), RolesGuard, PermissionsGuard)
-@Roles(Role.SUPER_ADMIN, Role.ADMIN)
+// @UseGuards(AuthGuard('jwt'), RolesGuard, PermissionsGuard)
+// @Roles(Role.SUPER_ADMIN, Role.ADMIN)
 export class StudentManagementController {
     constructor(private readonly studentService: StudentService) {
     }
 
 
     @Post()
-    @UseGuards(AuthGuard('jwt'), RolesGuard, PermissionsGuard)
-    @RolePermission(Permission.CREATE)
-    create(@Body() studentEntity: StudentEntity) {
-        return this.studentService.create(studentEntity);
+    // @UseGuards(AuthGuard('jwt'), RolesGuard, PermissionsGuard)
+    // @RolePermission(Permission.CREATE)
+    create(@Body() createStudentDto: CreateStudentDto) {
+        return this.studentService.create(createStudentDto);
     }
 
     @Delete(':id')

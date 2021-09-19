@@ -1,6 +1,7 @@
 import {BaseRepository} from "typeorm-transactional-cls-hooked";
 import {
     ConfirmationTokenEntity,
+    EnrollmentEntity,
     RoleEntity,
     SubjectTypeEntity,
     TokenEntity,
@@ -71,6 +72,11 @@ export const subjectTypeRepositoryMock: () => MockType<BaseRepository<SubjectTyp
     save: jest.fn(entity => entity),
     find: jest.fn(() => subjectTypesJson),
     remove: jest.fn(entity => subjectTypesJson.filter(t => t.id == entity.id)),
+}));
+
+export const enrollmentRepositoryMock: () => MockType<BaseRepository<EnrollmentEntity>> = jest.fn(() => ({
+    create: jest.fn(dto => plainToClass(EnrollmentEntity, dto)),
+    save: jest.fn(entity => entity)
 }));
 
 export const mockedJwtService = {

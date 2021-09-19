@@ -15,6 +15,7 @@ import {UrlGeneratorConfig} from "./libs/config/url-generator-service.config";
 import {CourseModule} from './module/course/course.module';
 import {SubjectModule} from './module/subject/subject.module';
 import {TutorModule} from './module/tutor/tutor.module';
+import {EnrollmentModule} from './module/enrollment/enrollment.module';
 
 const ENV = process.env.NODE_ENV;
 
@@ -40,6 +41,7 @@ const ENV = process.env.NODE_ENV;
         CourseModule,
         SubjectModule,
         TutorModule,
+        EnrollmentModule,
 
     ],
     controllers: [AppController],

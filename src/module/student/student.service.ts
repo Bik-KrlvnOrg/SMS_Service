@@ -1,34 +1,40 @@
-import { Injectable } from '@nestjs/common';
-import { UpdateStudentDto } from './dto';
-import { InjectRepository } from '@nestjs/typeorm';
-import { StudentRepository } from './student.repository';
-import { from } from 'rxjs';
-import { StudentEntity } from '../../entities';
+import {Injectable} from '@nestjs/common';
+import {UpdateStudentDto} from './dto';
+import {InjectRepository} from '@nestjs/typeorm';
+import {StudentRepository} from './student.repository';
+import {from} from 'rxjs';
+import {AddressEntity} from '../../entities';
+import {CreateStudentDto} from "./dto/create-student.dto";
+import {plainToClass} from "class-transformer";
 
 @Injectable()
 export class StudentService {
-  constructor(
-    @InjectRepository(StudentRepository)
-    private readonly  studentRepository: StudentRepository) {
-  }
+    constructor(
+        @InjectRepository(StudentRepository)
+        private readonly studentRepository: StudentRepository) {
+    }
 
-  create(studentEntity: StudentEntity) {
-    return from(this.studentRepository.createStudent(studentEntity));
-  }
+    async create(createStudentDto: CreateStudentDto) {
+        createStudentDto.first_name = createStudentDto.first_name.trim()
+        createStudentDto.last_name = createStudentDto.last_name.trim()
+        const studentEntity = this.studentRepository.create(createStudentDto);
+        studentEntity.addresses = plainToClass(AddressEntity, createStudentDto.addresses)
+        return from(this.studentRepository.save(studentEntity));
+    }
 
-  findAll() {
-    return this.studentRepository.find();
-  }
+    async findAll() {
+        return this.studentRepository.find();
+    }
 
-  findOne(id: string) {
-    return this.studentRepository.findOne(id);
-  }
+    async findOne(id: string) {
+        return this.studentRepository.findOne(id);
+    }
 
-  update(id: string, updateStudentDto: UpdateStudentDto) {
-    return `This action updates a #${id} student`;
-  }
+    update(id: string, updateStudentDto: UpdateStudentDto) {
+        return `This action updates a #${id} student`;
+    }
 
-  remove(id: string) {
-    return `This action removes a #${id} student`;
-  }
+    remove(id: string) {
+        return `This action removes a #${id} student`;
+    }
 }
