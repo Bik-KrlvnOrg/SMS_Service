@@ -52,7 +52,7 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^6.6.6",
-    "sqlite3": "^5.0.2",
+    "sqlite3": "^5.0.3",
     "typeorm": "^0.2.32",
     "typeorm-transactional-cls-hooked": "^0.1.20",
     "winston": "^3.3.3",
