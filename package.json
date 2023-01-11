@@ -38,7 +38,7 @@
     "bcryptjs": "^2.4.3",
     "bull": "^3.18.0",
     "class-transformer": "^0.4.0",
-    "class-validator": "^0.12.2",
+    "class-validator": "^0.14.0",
     "date-fns": "^2.21.1",
     "mysql2": "^2.1.0",
     "nest-access-control": "^2.0.2",
